@@ -1,1 +1,616 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>TASTYLOVE | Quick Meals & Fun Drinks</title>
+  <!-- Google Fonts for modern typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #fff9f0 0%, #fef3e2 100%);
+      font-family: 'Inter', sans-serif;
+      color: #2d2a24;
+      scroll-behavior: smooth;
+    }
+
+    /* custom container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* header / hero */
+    .hero {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #e45c2c, #f7b05e);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+      text-shadow: 2px 2px 12px rgba(228,92,44,0.1);
+    }
+
+    .hero .tagline {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #b1623b;
+      background: rgba(255,245,225,0.8);
+      display: inline-block;
+      padding: 0.3rem 1.5rem;
+      border-radius: 40px;
+      backdrop-filter: blur(2px);
+    }
+
+    .hero i {
+      color: #e45c2c;
+      margin: 0 6px;
+    }
+
+    /* category grid */
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.8rem;
+      margin: 3rem 0 3rem;
+    }
+
+    .cat-card {
+      background: white;
+      border-radius: 2rem;
+      padding: 1.2rem 1.8rem;
+      min-width: 140px;
+      text-align: center;
+      box-shadow: 0 12px 28px -8px rgba(0,0,0,0.08);
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: 1px solid #ffe3c6;
+      backdrop-filter: blur(2px);
+    }
+
+    .cat-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 22px 32px -12px rgba(228,92,44,0.2);
+      border-color: #f7b05e;
+    }
+
+    .cat-icon {
+      font-size: 2.2rem;
+      color: #e45c2c;
+      margin-bottom: 0.5rem;
+    }
+
+    .cat-card h3 {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 0.25rem;
+      color: #3d2a1f;
+    }
+
+    .cat-card p {
+      font-size: 0.8rem;
+      color: #a5735a;
+      font-weight: 500;
+    }
+
+    /* time badge */
+    .time-badge {
+      display: inline-block;
+      background: #fee3c0;
+      padding: 0.2rem 0.9rem;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #c34a1c;
+      margin-top: 0.5rem;
+    }
+
+    /* section titles */
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem 0;
+      border-left: 7px solid #e45c2c;
+      padding-left: 1rem;
+      color: #2b241e;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .section-title i {
+      color: #e45c2c;
+      font-size: 1.8rem;
+    }
+
+    /* recipe cards grid */
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .recipe-card {
+      background: #ffffffdd;
+      backdrop-filter: blur(2px);
+      background: white;
+      border-radius: 2rem;
+      overflow: hidden;
+      transition: all 0.2s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      border: 1px solid #fae1bd;
+    }
+
+    .recipe-card:hover {
+      transform: scale(1.01);
+      box-shadow: 0 18px 30px -12px rgba(0,0,0,0.12);
+    }
+
+    .recipe-img {
+      height: 160px;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: 0.8rem;
+    }
+
+    .recipe-badge {
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      padding: 0.25rem 0.8rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .recipe-info {
+      padding: 1.2rem 1.2rem 1.5rem;
+    }
+
+    .recipe-info h4 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: #3c2c1f;
+    }
+
+    .recipe-desc {
+      font-size: 0.85rem;
+      color: #6f5540;
+      margin-bottom: 0.7rem;
+      line-height: 1.4;
+    }
+
+    .recipe-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #b97f56;
+      margin: 0.5rem 0 0.8rem;
+    }
+
+    .recipe-meta i {
+      margin-right: 4px;
+    }
+
+    .watch-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffefe2;
+      border: none;
+      padding: 0.5rem 1.1rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: #c4491d;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .watch-btn i {
+      font-size: 0.9rem;
+    }
+
+    .watch-btn:hover {
+      background: #e45c2c;
+      color: white;
+      transform: scale(0.96);
+    }
+
+    /* braii special highlight */
+    .braii-highlight {
+      background: linear-gradient(120deg, #fff0e0, #ffe6d0);
+      border-radius: 2rem;
+      padding: 2rem;
+      margin: 2rem 0;
+      text-align: center;
+      border: 1px solid #ffcf9a;
+    }
+
+    .braii-highlight h3 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #b34314;
+    }
+
+    .btn-video-primary {
+      background: #e45c2c;
+      border: none;
+      padding: 0.9rem 2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      color: white;
+      margin-top: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 8px 16px rgba(228,92,44,0.3);
+    }
+
+    .btn-video-primary:hover {
+      background: #b34314;
+      transform: scale(1.02);
+    }
+
+    /* video modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #fffaf2;
+      max-width: 800px;
+      width: 90%;
+      border-radius: 2rem;
+      padding: 1rem;
+      position: relative;
+      box-shadow: 0 25px 40px rgba(0,0,0,0.3);
+      animation: fadeUp 0.3s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 1rem 0.2rem;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #4a2e1e;
+    }
+
+    .close-modal {
+      font-size: 1.8rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: #b1623b;
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      margin: 0.5rem 0;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 1.2rem;
+      border: none;
+    }
+
+    .modal-footer {
+      padding: 0.8rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #7f6246;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding: 1.5rem;
+      border-top: 2px dashed #ffd9b5;
+      color: #aa7a58;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 650px) {
+      .hero h1 { font-size: 2.8rem; }
+      .section-title { font-size: 1.6rem; }
+      .cat-card { min-width: 110px; padding: 0.8rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- hero / branding -->
+  <div class="hero">
+    <h1>TASTYLOVE <i class="fas fa-heart" style="font-size: 2.5rem; background: none; -webkit-background-clip: unset; color: #e45c2c;"></i></h1>
+    <div class="tagline">
+      <i class="fas fa-stopwatch"></i> easy quick meals · 15-20mins <i class="fas fa-mug-hot"></i> fun drinks · quick desserts
+    </div>
+  </div>
+
+  <!-- category badges (visual interactive) -->
+  <div class="categories">
+    <div class="cat-card" data-filter="quick">
+      <div class="cat-icon"><i class="fas fa-utensils"></i></div>
+      <h3>easy quick meals</h3>
+      <p>15-20 mins</p>
+      <span class="time-badge"><i class="far fa-clock"></i> fast & fresh</span>
+    </div>
+    <div class="cat-card" data-filter="drinks">
+      <div class="cat-icon"><i class="fas fa-cocktail"></i></div>
+      <h3>fun drinks</h3>
+      <p>mocktails · smoothies</p>
+    </div>
+    <div class="cat-card" data-filter="desserts">
+      <div class="cat-icon"><i class="fas fa-cake-candles"></i></div>
+      <h3>Quick & tasty desserts</h3>
+      <p>under 20min</p>
+    </div>
+    <div class="cat-card" data-filter="pescetarian">
+      <div class="cat-icon"><i class="fas fa-fish"></i></div>
+      <h3>Pescetarean food</h3>
+      <p>seafood & veggies</p>
+    </div>
+    <div class="cat-card" data-filter="braii">
+      <div class="cat-icon"><i class="fas fa-fire"></i></div>
+      <h3>Braii</h3>
+      <p>south african grill</p>
+    </div>
+    <div class="cat-card" data-filter="vegetarian">
+      <div class="cat-icon"><i class="fas fa-leaf"></i></div>
+      <h3>vegetarian food</h3>
+      <p>plant powered</p>
+    </div>
+  </div>
+
+  <!-- dynamic sections: we will inject recipe grids via js, but also prefill some HTML for SEO/layout -->
+  <div id="recipes-app">
+    <!-- quick meals section -->
+    <div class="section-title" id="quick-title"><i class="fas fa-bolt"></i> Easy Quick Meals · 15-20min</div>
+    <div class="recipe-grid" id="quick-grid"></div>
+
+    <div class="section-title" id="drinks-title"><i class="fas fa-blender"></i> Fun Drinks & Refreshments</div>
+    <div class="recipe-grid" id="drinks-grid"></div>
+
+    <div class="section-title" id="desserts-title"><i class="fas fa-ice-cream"></i> Quick & Tasty Desserts</div>
+    <div class="recipe-grid" id="desserts-grid"></div>
+
+    <div class="section-title" id="pescetarian-title"><i class="fas fa-fish"></i> Pescetarian Delights</div>
+    <div class="recipe-grid" id="pescetarian-grid"></div>
+
+    <div class="section-title" id="vegetarian-title"><i class="fas fa-seedling"></i> Vibrant Vegetarian</div>
+    <div class="recipe-grid" id="vegetarian-grid"></div>
+
+    <!-- special Braii feature + video -->
+    <div class="braii-highlight" id="braii-section">
+      <i class="fas fa-drumstick-bite" style="font-size: 2.5rem; color:#e45c2c;"></i>
+      <h3>🔥 Braii — South African Soul Fire 🔥</h3>
+      <p>Traditional flame-grilled goodness, smoky chakalaka, boerewors, and sosaties. Gather around the fire!</p>
+      <button class="btn-video-primary" data-video-id="braii-special" data-video-url="https://www.youtube.com/embed/3eBg5P4rC2Q?autoplay=1" id="braiiVideoTrigger">
+        <i class="fab fa-youtube"></i> Watch Braii Masterclass
+      </button>
+    </div>
+  </div>
+
+  <!-- video modal -->
+  <div id="videoModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span><i class="fas fa-play-circle" style="color:#e45c2c;"></i> TASTYLOVE video recipe</span>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="video-wrapper" id="videoFrameContainer">
+        <!-- iframe inserted here -->
+      </div>
+      <div class="modal-footer">
+        <i class="fas fa-utensils"></i> step-by-step · quick & delicious
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <i class="fas fa-heart" style="color:#e45c2c;"></i> TASTYLOVE — click any "watch video" to get online tutorials & cooking inspiration <i class="fas fa-video"></i><br>
+    easy meals · pescetarian · braii · vegetarian · sweet treats
+  </footer>
+</div>
+
+<script>
+  // ---------- RECIPE DATABASE ----------
+  const recipesDB = {
+    quick: [
+      { name: "Garlic Butter Shrimp Pasta", desc: "Juicy shrimp, garlic, cherry tomatoes, ready in 18min.", time: "18min", icon: "fa-shrimp", videoId: "dQw4w9WgXcQ", videoUrl: "https://www.youtube.com/embed/6gB5pO3Gvkw?autoplay=1" },
+      { name: "Chicken Avocado Wrap", desc: "Grilled chicken, creamy avocado, lettuce & spicy yogurt sauce.", time: "12min", icon: "fa-utensils", videoUrl: "https://www.youtube.com/embed/gV8tVWl2rHk?autoplay=1" },
+      { name: "Mediterranean Bowl", desc: "Couscous, feta, olives, cucumber & lemon herb dressing.", time: "15min", icon: "fa-bowl-food", videoUrl: "https://www.youtube.com/embed/0n1D1qyPDH0?autoplay=1" }
+    ],
+    drinks: [
+      { name: "Sunset Berry Mocktail", desc: "Mixed berries, mint, lime, sparkling soda.", time: "5min", icon: "fa-wine-glass", videoUrl: "https://www.youtube.com/embed/LwHqcbqqTGs?autoplay=1" },
+      { name: "Mango Tango Smoothie", desc: "Mango, banana, yogurt, touch of honey.", time: "7min", icon: "fa-blender", videoUrl: "https://www.youtube.com/embed/7cNAwZetK4g?autoplay=1" },
+      { name: "Iced Matcha Latte", desc: "Creamy matcha, oat milk, vanilla, on the rocks.", time: "5min", icon: "fa-mug-hot", videoUrl: "https://www.youtube.com/embed/9aiYt1XKBL4?autoplay=1" }
+    ],
+    desserts: [
+      { name: "3-Min Mug Brownie", desc: "Gooey chocolate, microwave magic, top with berries.", time: "3min", icon: "fa-cake-candles", videoUrl: "https://www.youtube.com/embed/qz5JpNn3lKA?autoplay=1" },
+      { name: "No-Bake Cheesecake Jars", desc: "Creamy layers, graham crust, fruit topping.", time: "15min (chill)", icon: "fa-jar", videoUrl: "https://www.youtube.com/embed/KZtM_4cNcQI?autoplay=1" },
+      { name: "Cinnamon Apple Fries", desc: "Baked apple slices, cinnamon sugar, yogurt dip.", time: "12min", icon: "fa-apple-alt", videoUrl: "https://www.youtube.com/embed/1qY_Br0fJ60?autoplay=1" }
+    ],
+    pescetarian: [
+      { name: "Lemon Dill Salmon", desc: "Pan-seared salmon, lemon butter sauce, asparagus.", time: "20min", icon: "fa-fish", videoUrl: "https://www.youtube.com/embed/nRZRpPqP5cE?autoplay=1" },
+      { name: "Spicy Tuna Poke Bowl", desc: "Fresh tuna, avocado, edamame, sesame.", time: "15min", icon: "fa-bowl-food", videoUrl: "https://www.youtube.com/embed/2bOvM8YbP8M?autoplay=1" },
+      { name: "Garlic Prawn Skewers", desc: "Grilled prawns, herb marinade, zesty dip.", time: "18min", icon: "fa-utensils", videoUrl: "https://www.youtube.com/embed/lcJj6dRbD10?autoplay=1" }
+    ],
+    vegetarian: [
+      { name: "Veggie Stir-fry Tofu", desc: "Colorful peppers, broccoli, tofu, ginger soy.", time: "17min", icon: "fa-seedling", videoUrl: "https://www.youtube.com/embed/cR3YuglXrLU?autoplay=1" },
+      { name: "Sweet Potato & Chickpea Curry", desc: "Coconut curry, spinach, quick rice.", time: "20min", icon: "fa-leaf", videoUrl: "https://www.youtube.com/embed/wZ5y6pjjK8g?autoplay=1" },
+      { name: "Caprese Avocado Toast", desc: "Fresh mozzarella, tomato, basil, balsamic.", time: "8min", icon: "fa-bread-slice", videoUrl: "https://www.youtube.com/embed/LXW8cHzHcEQ?autoplay=1" }
+    ]
+  };
+
+  // helper to create recipe card html
+  function createRecipeCard(recipe, categoryKey) {
+    const videoUrl = recipe.videoUrl || `https://www.youtube.com/embed/${recipe.videoId}?autoplay=1`;
+    return `
+      <div class="recipe-card">
+        <div class="recipe-img" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url('https://source.unsplash.com/featured/400x200/?${encodeURIComponent(recipe.name.split(' ')[0])},food'); background-size: cover;">
+          <span class="recipe-badge"><i class="fas ${recipe.icon || 'fa-utensils'}"></i> ${recipe.time || 'quick'}</span>
+        </div>
+        <div class="recipe-info">
+          <h4>${recipe.name}</h4>
+          <div class="recipe-desc">${recipe.desc}</div>
+          <div class="recipe-meta"><i class="far fa-clock"></i> ${recipe.time || '15-20min'}  <i class="fas fa-fire"></i> easy</div>
+          <button class="watch-btn" data-video-url="${videoUrl}"><i class="fab fa-youtube"></i> Watch video recipe</button>
+        </div>
+      </div>
+    `;
+  }
+
+  // render all sections
+  function renderAll() {
+    const quickGrid = document.getElementById('quick-grid');
+    const drinksGrid = document.getElementById('drinks-grid');
+    const dessertsGrid = document.getElementById('desserts-grid');
+    const pescetarianGrid = document.getElementById('pescetarian-grid');
+    const vegetarianGrid = document.getElementById('vegetarian-grid');
+
+    if (quickGrid) quickGrid.innerHTML = recipesDB.quick.map(r => createRecipeCard(r, 'quick')).join('');
+    if (drinksGrid) drinksGrid.innerHTML = recipesDB.drinks.map(r => createRecipeCard(r, 'drinks')).join('');
+    if (dessertsGrid) dessertsGrid.innerHTML = recipesDB.desserts.map(r => createRecipeCard(r, 'desserts')).join('');
+    if (pescetarianGrid) pescetarianGrid.innerHTML = recipesDB.pescetarian.map(r => createRecipeCard(r, 'pescetarian')).join('');
+    if (vegetarianGrid) vegetarianGrid.innerHTML = recipesDB.vegetarian.map(r => createRecipeCard(r, 'vegetarian')).join('');
+  }
+
+  // Modal logic for video
+  const modal = document.getElementById('videoModal');
+  const videoFrameContainer = document.getElementById('videoFrameContainer');
+  let currentIframe = null;
+
+  function openModal(videoUrl) {
+    // clear previous iframe
+    if (currentIframe) {
+      videoFrameContainer.innerHTML = '';
+    }
+    const iframe = document.createElement('iframe');
+    iframe.setAttribute('src', videoUrl);
+    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+    iframe.setAttribute('allowfullscreen', 'true');
+    iframe.style.width = '100%';
+    iframe.style.height = '100%';
+    iframe.style.borderRadius = '1rem';
+    videoFrameContainer.appendChild(iframe);
+    currentIframe = iframe;
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.style.display = 'none';
+    if (currentIframe) {
+      videoFrameContainer.innerHTML = '';
+      currentIframe = null;
+    }
+    document.body.style.overflow = '';
+  }
+
+  // global event delegation for all watch buttons (including dynamically added)
+  document.body.addEventListener('click', (e) => {
+    const watchBtn = e.target.closest('.watch-btn');
+    if (watchBtn) {
+      e.preventDefault();
+      const videoUrl = watchBtn.getAttribute('data-video-url');
+      if (videoUrl) {
+        openModal(videoUrl);
+      } else {
+        // fallback default recipe video
+        openModal('https://www.youtube.com/embed/3eBg5P4rC2Q?autoplay=1');
+      }
+      return;
+    }
+    // braii special button
+    const braiiBtn = document.getElementById('braiiVideoTrigger');
+    if (braiiBtn && (e.target === braiiBtn || braiiBtn.contains(e.target))) {
+      openModal('https://www.youtube.com/embed/3eBg5P4rC2Q?autoplay=1');
+      e.preventDefault();
+    }
+    // close modal
+    const closeBtn = document.querySelector('.close-modal');
+    if (closeBtn && (e.target === closeBtn || e.target === modal)) {
+      closeModal();
+    }
+  });
+
+  // category cards smooth scroll (optional interaction)
+  const catCards = document.querySelectorAll('.cat-card');
+  catCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const filter = card.getAttribute('data-filter');
+      if (filter === 'quick') document.getElementById('quick-title')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      else if (filter === 'drinks') document.getElementById('drinks-title')?.scrollIntoView({ behavior: 'smooth' });
+      else if (filter === 'desserts') document.getElementById('desserts-title')?.scrollIntoView({ behavior: 'smooth' });
+      else if (filter === 'pescetarian') document.getElementById('pescetarian-title')?.scrollIntoView({ behavior: 'smooth' });
+      else if (filter === 'vegetarian') document.getElementById('vegetarian-title')?.scrollIntoView({ behavior: 'smooth' });
+      else if (filter === 'braii') document.getElementById('braii-section')?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // initial render
+  renderAll();
+
+  // close modal on escape key
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.style.display === 'flex') {
+      closeModal();
+    }
+  });
+</script>
+</body>
+</html>
