@@ -1,5 +1,5 @@
 
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -17,99 +17,57 @@
     }
     .container { max-width: 1280px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
     
-    /* COVER PAGE - FULL IMAGE AS COVER */
+    /* COVER PAGE STYLES */
     .cover-hero {
       position: relative;
       border-radius: 2rem;
       margin-bottom: 3rem;
       overflow: hidden;
       box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2);
-      min-height: 600px;
-      background-image: url('TASTYLOVE(2).png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
-    .cover-hero::before {
-      content: '';
+    .cover-image {
+      width: 100%;
+      height: auto;
+      min-height: 350px;
+      object-fit: cover;
+      display: block;
+    }
+    .cover-overlay {
       position: absolute;
-      top: 0;
+      bottom: 0;
       left: 0;
       right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.3);
-      z-index: 1;
-      border-radius: 2rem;
-    }
-    .cover-content {
-      text-align: center;
+      background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
       padding: 2rem;
-      z-index: 2;
-      width: 100%;
+      text-align: center;
     }
-    .cover-content h1 {
+    .cover-overlay h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 5rem;
+      font-size: 3.8rem;
       font-weight: 800;
       color: white;
-      text-shadow: 4px 4px 20px rgba(0,0,0,0.8);
-      margin-bottom: 1rem;
-      letter-spacing: 4px;
-      animation: fadeInDown 0.8s ease;
+      text-shadow: 2px 2px 12px rgba(0,0,0,0.5);
+      margin-bottom: 0.5rem;
     }
-    .cover-content h1 i {
+    .cover-overlay h1 i {
       color: #ff6b4a;
-      text-shadow: 2px 2px 12px rgba(0,0,0,0.6);
+      text-shadow: none;
     }
-    .cover-content .tagline {
-      font-size: 1.2rem;
+    .cover-overlay .tagline {
+      font-size: 1.15rem;
       font-weight: 500;
       color: white;
-      background: rgba(228,92,44,0.85);
+      background: rgba(228,92,44,0.9);
       display: inline-block;
-      padding: 0.6rem 2rem;
-      border-radius: 50px;
-      backdrop-filter: blur(5px);
-      letter-spacing: 0.5px;
-      animation: fadeInUp 0.8s ease;
+      padding: 0.4rem 1.8rem;
+      border-radius: 40px;
+      backdrop-filter: blur(4px);
     }
-    .cover-content .tagline i { margin: 0 6px; }
+    .cover-overlay .tagline i { margin: 0 4px; }
     
-    @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    @media (max-width: 768px) {
-      .cover-hero { min-height: 500px; }
-      .cover-content h1 { font-size: 3rem; letter-spacing: 2px; }
-      .cover-content .tagline { font-size: 0.9rem; padding: 0.5rem 1.5rem; }
-    }
-    @media (max-width: 480px) {
-      .cover-hero { min-height: 400px; }
-      .cover-content h1 { font-size: 2.2rem; letter-spacing: 1px; }
-      .cover-content .tagline { font-size: 0.7rem; padding: 0.4rem 1rem; }
-      .cover-content .tagline i { margin: 0 4px; }
+    @media (max-width: 650px) {
+      .cover-overlay h1 { font-size: 2.3rem; }
+      .cover-overlay .tagline { font-size: 0.85rem; padding: 0.3rem 1.2rem; }
     }
 
     .categories {
@@ -261,9 +219,10 @@
 <body>
 
 <div class="container">
-  <!-- COVER PAGE - TASTYLOVE(2).png AS FULL COVER -->
+  <!-- COVER PAGE with your TASTYLOVE(2).png image -->
   <div class="cover-hero">
-    <div class="cover-content">
+    <img class="cover-image" src="TASTYLOVE(2).png" alt="TASTYLOVE Cover - Quick Meals, Fun Drinks, Desserts, Pescetarian, Braii, Vegetarian" onerror="this.onerror=null; this.src='https://placehold.co/1200x400/e45c2c/white?text=TASTYLOVE'">
+    <div class="cover-overlay">
       <h1>TASTYLOVE <i class="fas fa-heart"></i></h1>
       <div class="tagline">
         <i class="fas fa-stopwatch"></i> easy quick meals · 15-20mins 
