@@ -17,7 +17,7 @@
     }
     .container { max-width: 1280px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
     
-    /* COVER PAGE STYLES */
+    /* COVER PAGE STYLES - CENTERED TITLE */
     .cover-hero {
       position: relative;
       border-radius: 2rem;
@@ -28,40 +28,57 @@
     .cover-image {
       width: 100%;
       height: auto;
-      min-height: 320px;
+      min-height: 400px;
       object-fit: cover;
       display: block;
     }
     .cover-overlay {
       position: absolute;
-      bottom: 0;
+      top: 0;
       left: 0;
       right: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-      padding: 2rem;
+      bottom: 0;
+      background: rgba(0,0,0,0.45);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
+      padding: 2rem;
     }
     .cover-overlay h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 3.5rem;
+      font-size: 5rem;
       font-weight: 800;
       color: white;
-      text-shadow: 2px 2px 12px rgba(0,0,0,0.5);
-      margin-bottom: 0.5rem;
+      text-shadow: 3px 3px 15px rgba(0,0,0,0.6);
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+    }
+    .cover-overlay h1 i {
+      color: #ff6b4a;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
     }
     .cover-overlay .tagline {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: 500;
       color: white;
       background: rgba(228,92,44,0.85);
       display: inline-block;
-      padding: 0.3rem 1.5rem;
-      border-radius: 40px;
-      backdrop-filter: blur(4px);
+      padding: 0.5rem 2rem;
+      border-radius: 50px;
+      backdrop-filter: blur(5px);
+      letter-spacing: 0.5px;
     }
-    @media (max-width: 650px) {
+    .cover-overlay .tagline i { margin: 0 6px; }
+    
+    @media (max-width: 768px) {
+      .cover-overlay h1 { font-size: 3rem; }
+      .cover-overlay .tagline { font-size: 0.9rem; padding: 0.4rem 1.2rem; }
+    }
+    @media (max-width: 480px) {
       .cover-overlay h1 { font-size: 2.2rem; }
-      .cover-overlay .tagline { font-size: 0.85rem; }
+      .cover-overlay .tagline { font-size: 0.75rem; padding: 0.3rem 1rem; }
     }
 
     .categories {
@@ -213,13 +230,14 @@
 <body>
 
 <div class="container">
-  <!-- COVER PAGE with TASTYLOVE(2).png from GitHub repo -->
+  <!-- COVER PAGE with centered title -->
   <div class="cover-hero">
-    <img class="cover-image" src="TASTYLOVE%20(2).png" alt="TASTYLOVE Cover - Quick Meals, Fun Drinks, Desserts" onerror="this.onerror=null; this.src='https://placehold.co/1200x400/e45c2c/white?text=TASTYLOVE'">
+    <img class="cover-image" src="TASTYLOVE(2).png" alt="TASTYLOVE Cover - Quick Meals, Fun Drinks, Desserts, Pescetarian, Braii, Vegetarian" onerror="this.onerror=null; this.src='https://placehold.co/1200x500/e45c2c/white?text=TASTYLOVE'">
     <div class="cover-overlay">
       <h1>TASTYLOVE <i class="fas fa-heart"></i></h1>
       <div class="tagline">
-        <i class="fas fa-stopwatch"></i> easy quick meals · 15-20mins <i class="fas fa-mug-hot"></i> fun drinks · quick desserts
+        <i class="fas fa-stopwatch"></i> easy quick meals · 15-20mins 
+        <i class="fas fa-mug-hot"></i> fun drinks · quick desserts
       </div>
     </div>
   </div>
