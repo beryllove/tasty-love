@@ -17,65 +17,74 @@
     }
     .container { max-width: 1280px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
     
-    /* COVER PAGE STYLES - FULL BACKGROUND IMAGE WITH CENTERED TITLE */
+    /* COVER PAGE - IMAGE AS BACKGROUND BEHIND TITLE */
     .cover-hero {
       position: relative;
       border-radius: 2rem;
       margin-bottom: 3rem;
       overflow: hidden;
       box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2);
-      min-height: 500px;
+      min-height: 550px;
       background-image: url('TASTYLOVE(2).png');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .cover-overlay {
+    .cover-content {
+      text-align: center;
+      padding: 2rem;
+      z-index: 2;
+      width: 100%;
+    }
+    .cover-hero::before {
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0,0,0,0.4);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 2rem;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 1;
+      border-radius: 2rem;
     }
-    .cover-overlay h1 {
+    .cover-content h1 {
       font-family: 'Playfair Display', serif;
       font-size: 5.5rem;
       font-weight: 800;
       color: white;
-      text-shadow: 3px 3px 20px rgba(0,0,0,0.7);
+      text-shadow: 4px 4px 20px rgba(0,0,0,0.8);
       margin-bottom: 1rem;
-      letter-spacing: 3px;
+      letter-spacing: 4px;
       animation: fadeInDown 0.8s ease;
+      position: relative;
+      z-index: 2;
     }
-    .cover-overlay h1 i {
+    .cover-content h1 i {
       color: #ff6b4a;
-      text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+      text-shadow: 2px 2px 12px rgba(0,0,0,0.6);
     }
-    .cover-overlay .tagline {
+    .cover-content .tagline {
       font-size: 1.25rem;
       font-weight: 500;
       color: white;
       background: rgba(228,92,44,0.9);
       display: inline-block;
-      padding: 0.6rem 2.2rem;
-      border-radius: 50px;
-      backdrop-filter: blur(5px);
+      padding: 0.7rem 2.5rem;
+      border-radius: 60px;
+      backdrop-filter: blur(6px);
       letter-spacing: 0.5px;
       animation: fadeInUp 0.8s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
-    .cover-overlay .tagline i { margin: 0 8px; }
+    .cover-content .tagline i { margin: 0 8px; }
     
     @keyframes fadeInDown {
       from {
         opacity: 0;
-        transform: translateY(-30px);
+        transform: translateY(-40px);
       }
       to {
         opacity: 1;
@@ -86,7 +95,7 @@
     @keyframes fadeInUp {
       from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(40px);
       }
       to {
         opacity: 1;
@@ -95,15 +104,15 @@
     }
     
     @media (max-width: 768px) {
-      .cover-hero { min-height: 400px; }
-      .cover-overlay h1 { font-size: 3rem; letter-spacing: 2px; }
-      .cover-overlay .tagline { font-size: 0.9rem; padding: 0.4rem 1.5rem; }
+      .cover-hero { min-height: 450px; }
+      .cover-content h1 { font-size: 3.2rem; letter-spacing: 2px; }
+      .cover-content .tagline { font-size: 0.95rem; padding: 0.5rem 1.8rem; }
     }
     @media (max-width: 480px) {
-      .cover-hero { min-height: 320px; }
-      .cover-overlay h1 { font-size: 2.2rem; letter-spacing: 1px; }
-      .cover-overlay .tagline { font-size: 0.7rem; padding: 0.3rem 1rem; }
-      .cover-overlay .tagline i { margin: 0 4px; }
+      .cover-hero { min-height: 350px; }
+      .cover-content h1 { font-size: 2.4rem; letter-spacing: 1px; }
+      .cover-content .tagline { font-size: 0.75rem; padding: 0.4rem 1.2rem; }
+      .cover-content .tagline i { margin: 0 4px; }
     }
 
     .categories {
@@ -255,9 +264,9 @@
 <body>
 
 <div class="container">
-  <!-- COVER PAGE - IMAGE AS BACKGROUND, TITLE CENTERED -->
+  <!-- COVER PAGE - TASTYLOVE(2).png AS BACKGROUND BEHIND TITLE -->
   <div class="cover-hero">
-    <div class="cover-overlay">
+    <div class="cover-content">
       <h1>TASTYLOVE <i class="fas fa-heart"></i></h1>
       <div class="tagline">
         <i class="fas fa-stopwatch"></i> easy quick meals · 15-20mins 
