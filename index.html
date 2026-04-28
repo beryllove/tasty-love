@@ -17,7 +17,7 @@
     }
     .container { max-width: 1280px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
     
-    /* COVER PAGE - IMAGE FILLING THE ORANGE SECTION */
+    /* COVER PAGE - TASTYLOVE(2).png AS BACKGROUND */
     .cover-hero {
       position: relative;
       border-radius: 2rem;
@@ -193,6 +193,14 @@
     }
     .watch-btn:hover { background: #e45c2c; color: white; transform: scale(0.96); }
     
+    /* Expanded drinks section */
+    .drinks-expanded {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+    
     .braii-highlight {
       background: linear-gradient(120deg, #fff0e0, #ffe6d0);
       border-radius: 2rem;
@@ -258,7 +266,7 @@
 <body>
 
 <div class="container">
-  <!-- COVER PAGE - TASTYLOVE(2).png FILLING THE ORANGE SECTION -->
+  <!-- COVER PAGE - TASTYLOVE(2).png AS BACKGROUND BEHIND TITLE -->
   <div class="cover-hero">
     <div class="cover-content">
       <h1>TASTYLOVE <i class="fas fa-heart"></i></h1>
@@ -283,7 +291,7 @@
     <div class="section-title" id="quick-title"><i class="fas fa-bolt"></i> Easy Quick Meals · 15-20min</div>
     <div class="recipe-grid" id="quick-grid"></div>
     <div class="section-title" id="drinks-title"><i class="fas fa-blender"></i> Fun Drinks & Refreshments</div>
-    <div class="recipe-grid" id="drinks-grid"></div>
+    <div class="recipe-grid drinks-expanded" id="drinks-grid"></div>
     <div class="section-title" id="desserts-title"><i class="fas fa-ice-cream"></i> Quick & Tasty Desserts</div>
     <div class="recipe-grid" id="desserts-grid"></div>
     <div class="section-title" id="pescetarian-title"><i class="fas fa-fish"></i> Pescetarian Delights</div>
@@ -339,9 +347,12 @@
       }
     ],
     drinks: [
-      { name: "Sunset Berry Mocktail", desc: "Mixed berries, mint, lime, sparkling soda.", time: "5min", icon: "fa-wine-glass", videoUrl: "https://www.youtube.com/embed/LwHqcbqqTGs?autoplay=1", image: "https://images.unsplash.com/photo-1546171753-97d9d3c2b8b6?w=400&h=200&fit=crop" },
-      { name: "Mango Tango Smoothie", desc: "Mango, banana, yogurt, touch of honey.", time: "7min", icon: "fa-blender", videoUrl: "https://www.youtube.com/embed/7cNAwZetK4g?autoplay=1", image: "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=400&h=200&fit=crop" },
-      { name: "Iced Matcha Latte", desc: "Creamy matcha, oat milk, vanilla, on the rocks.", time: "5min", icon: "fa-mug-hot", videoUrl: "https://www.youtube.com/embed/9aiYt1XKBL4?autoplay=1", image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=400&h=200&fit=crop" }
+      { name: "Sunset Berry Mocktail", desc: "Mixed berries, mint, lime, sparkling soda.", time: "5min", icon: "fa-wine-glass", videoUrl: "https://www.youtube.com/embed/LwHqcbqqTGs?autoplay=1", image: "berry.jpeg" },
+      { name: "Tropical Sunrise Smoothie", desc: "Pineapple, mango, orange, coconut milk, refreshing tropical delight.", time: "7min", icon: "fa-blender", videoUrl: "https://www.youtube.com/embed/7cNAwZetK4g?autoplay=1", image: "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=400&h=200&fit=crop" },
+      { name: "Iced Matcha Latte", desc: "Creamy matcha, oat milk, vanilla, on the rocks.", time: "5min", icon: "fa-mug-hot", videoUrl: "https://www.youtube.com/embed/9aiYt1XKBL4?autoplay=1", image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=400&h=200&fit=crop" },
+      { name: "Watermelon Mint Cooler", desc: "Fresh watermelon, mint leaves, lime, sparkling water.", time: "6min", icon: "fa-wine-glass", videoUrl: "https://www.youtube.com/embed/LwHqcbqqTGs?autoplay=1", image: "https://images.unsplash.com/photo-1563221273-8aceaa7dab3a?w=400&h=200&fit=crop" },
+      { name: "Strawberry Basil Smash", desc: "Fresh strawberries, basil, lemon, soda water.", time: "5min", icon: "fa-cocktail", videoUrl: "https://www.youtube.com/embed/7cNAwZetK4g?autoplay=1", image: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400&h=200&fit=crop" },
+      { name: "Golden Turmeric Latte", desc: "Turmeric, ginger, cinnamon, oat milk, honey.", time: "8min", icon: "fa-mug-hot", videoUrl: "https://www.youtube.com/embed/9aiYt1XKBL4?autoplay=1", image: "https://images.unsplash.com/photo-1572442388796-11668a67f7b1?w=400&h=200&fit=crop" }
     ],
     desserts: [
       { name: "3-Min Mug Brownie", desc: "Gooey chocolate, microwave magic, top with berries.", time: "3min", icon: "fa-cake-candles", videoUrl: "https://www.youtube.com/embed/qz5JpNn3lKA?autoplay=1", image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=200&fit=crop" },
@@ -356,7 +367,7 @@
     vegetarian: [
       { name: "Veggie Stir-fry Tofu", desc: "Colorful peppers, broccoli, tofu, ginger soy.", time: "17min", icon: "fa-seedling", videoUrl: "https://www.youtube.com/embed/cR3YuglXrLU?autoplay=1", image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=200&fit=crop" },
       { name: "Sweet Potato & Chickpea Curry", desc: "Coconut curry, spinach, quick rice.", time: "20min", icon: "fa-leaf", videoUrl: "https://www.youtube.com/embed/wZ5y6pjjK8g?autoplay=1", image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&h=200&fit=crop" },
-      { name: "Caprese Avocado Toast", desc: "Fresh mozzarella, tomato, basil, balsamic.", time: "8min", icon: "fa-bread-slice", videoUrl: "https://www.youtube.com/embed/LXW8cHzHcEQ?autoplay=1", image: "https://images.unsplash.com/photo-1603046891744-1f76eb10aec5?w=400&h=200&fit=crop" }
+      { name: "Caprese Avocado Toast", desc: "Fresh mozzarella, tomato, basil, balsamic.", time: "8min", icon: "fa-bread-slice", videoUrl: "https://www.youtube.com/embed/LXW8cHzHcEQ?autoplay=1", image: "toast.jpeg" }
     ]
   };
 
