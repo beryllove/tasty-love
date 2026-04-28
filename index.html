@@ -33,7 +33,6 @@
       align-items: center;
       justify-content: center;
     }
-    /* Dark overlay for text readability */
     .cover-hero::before {
       content: '';
       position: absolute;
@@ -141,15 +140,37 @@
     }
     .recipe-card:hover { transform: scale(1.01); box-shadow: 0 18px 30px -12px rgba(0,0,0,0.12); }
     .recipe-img {
-      height: 160px;
+      height: 200px;
       background-size: cover;
       background-position: center;
+      background-repeat: no-repeat;
       display: flex;
       align-items: flex-end;
       justify-content: flex-start;
       padding: 0.8rem;
+      position: relative;
     }
-    .recipe-badge { background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); padding: 0.25rem 0.8rem; border-radius: 40px; font-size: 0.7rem; font-weight: 600; color: white; }
+    .recipe-img::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+      border-radius: 0 0 0 0;
+    }
+    .recipe-badge {
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      padding: 0.35rem 0.9rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+      position: relative;
+      z-index: 1;
+    }
     .recipe-info { padding: 1.2rem 1.2rem 1.5rem; }
     .recipe-info h4 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.4rem; color: #3c2c1f; }
     .recipe-desc { font-size: 0.85rem; color: #6f5540; margin-bottom: 0.7rem; line-height: 1.4; }
@@ -292,34 +313,56 @@
 <script>
   const recipesDB = {
     quick: [
-      { name: "Garlic Butter Shrimp Pasta", desc: "Juicy shrimp, garlic, cherry tomatoes, ready in 18min.", time: "18min", icon: "fa-shrimp", videoUrl: "https://www.youtube.com/embed/6gB5pO3Gvkw?autoplay=1" },
-      { name: "Chicken Avocado Wrap", desc: "Grilled chicken, creamy avocado, lettuce & spicy yogurt sauce.", time: "12min", icon: "fa-utensils", videoUrl: "https://www.youtube.com/embed/gV8tVWl2rHk?autoplay=1" },
-      { name: "Mediterranean Bowl", desc: "Couscous, feta, olives, cucumber & lemon herb dressing.", time: "15min", icon: "fa-bowl-food", videoUrl: "https://www.youtube.com/embed/0n1D1qyPDH0?autoplay=1" }
+      { 
+        name: "Garlic Butter Shrimp Pasta", 
+        desc: "Juicy shrimp, garlic, cherry tomatoes, ready in 18min.", 
+        time: "18min", 
+        icon: "fa-shrimp", 
+        videoUrl: "https://www.youtube.com/embed/6gB5pO3Gvkw?autoplay=1",
+        image: "garlic.jpeg"
+      },
+      { 
+        name: "Chicken Avocado Wrap", 
+        desc: "Grilled chicken, creamy avocado, lettuce & spicy yogurt sauce.", 
+        time: "12min", 
+        icon: "fa-utensils", 
+        videoUrl: "https://www.youtube.com/embed/gV8tVWl2rHk?autoplay=1",
+        image: "avocado.jpeg"
+      },
+      { 
+        name: "Mediterranean Bowl", 
+        desc: "Couscous, feta, olives, cucumber & lemon herb dressing.", 
+        time: "15min", 
+        icon: "fa-bowl-food", 
+        videoUrl: "https://www.youtube.com/embed/0n1D1qyPDH0?autoplay=1",
+        image: "bowl.jpeg"
+      }
     ],
     drinks: [
-      { name: "Sunset Berry Mocktail", desc: "Mixed berries, mint, lime, sparkling soda.", time: "5min", icon: "fa-wine-glass", videoUrl: "https://www.youtube.com/embed/LwHqcbqqTGs?autoplay=1" },
-      { name: "Mango Tango Smoothie", desc: "Mango, banana, yogurt, touch of honey.", time: "7min", icon: "fa-blender", videoUrl: "https://www.youtube.com/embed/7cNAwZetK4g?autoplay=1" },
-      { name: "Iced Matcha Latte", desc: "Creamy matcha, oat milk, vanilla, on the rocks.", time: "5min", icon: "fa-mug-hot", videoUrl: "https://www.youtube.com/embed/9aiYt1XKBL4?autoplay=1" }
+      { name: "Sunset Berry Mocktail", desc: "Mixed berries, mint, lime, sparkling soda.", time: "5min", icon: "fa-wine-glass", videoUrl: "https://www.youtube.com/embed/LwHqcbqqTGs?autoplay=1", image: "https://images.unsplash.com/photo-1546171753-97d9d3c2b8b6?w=400&h=200&fit=crop" },
+      { name: "Mango Tango Smoothie", desc: "Mango, banana, yogurt, touch of honey.", time: "7min", icon: "fa-blender", videoUrl: "https://www.youtube.com/embed/7cNAwZetK4g?autoplay=1", image: "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=400&h=200&fit=crop" },
+      { name: "Iced Matcha Latte", desc: "Creamy matcha, oat milk, vanilla, on the rocks.", time: "5min", icon: "fa-mug-hot", videoUrl: "https://www.youtube.com/embed/9aiYt1XKBL4?autoplay=1", image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=400&h=200&fit=crop" }
     ],
     desserts: [
-      { name: "3-Min Mug Brownie", desc: "Gooey chocolate, microwave magic, top with berries.", time: "3min", icon: "fa-cake-candles", videoUrl: "https://www.youtube.com/embed/qz5JpNn3lKA?autoplay=1" },
-      { name: "No-Bake Cheesecake Jars", desc: "Creamy layers, graham crust, fruit topping.", time: "15min (chill)", icon: "fa-jar", videoUrl: "https://www.youtube.com/embed/KZtM_4cNcQI?autoplay=1" },
-      { name: "Cinnamon Apple Fries", desc: "Baked apple slices, cinnamon sugar, yogurt dip.", time: "12min", icon: "fa-apple-alt", videoUrl: "https://www.youtube.com/embed/1qY_Br0fJ60?autoplay=1" }
+      { name: "3-Min Mug Brownie", desc: "Gooey chocolate, microwave magic, top with berries.", time: "3min", icon: "fa-cake-candles", videoUrl: "https://www.youtube.com/embed/qz5JpNn3lKA?autoplay=1", image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=200&fit=crop" },
+      { name: "No-Bake Cheesecake Jars", desc: "Creamy layers, graham crust, fruit topping.", time: "15min (chill)", icon: "fa-jar", videoUrl: "https://www.youtube.com/embed/KZtM_4cNcQI?autoplay=1", image: "https://images.unsplash.com/photo-1542826438-bd32f43d626f?w=400&h=200&fit=crop" },
+      { name: "Cinnamon Apple Fries", desc: "Baked apple slices, cinnamon sugar, yogurt dip.", time: "12min", icon: "fa-apple-alt", videoUrl: "https://www.youtube.com/embed/1qY_Br0fJ60?autoplay=1", image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=400&h=200&fit=crop" }
     ],
     pescetarian: [
-      { name: "Lemon Dill Salmon", desc: "Pan-seared salmon, lemon butter sauce, asparagus.", time: "20min", icon: "fa-fish", videoUrl: "https://www.youtube.com/embed/nRZRpPqP5cE?autoplay=1" },
-      { name: "Spicy Tuna Poke Bowl", desc: "Fresh tuna, avocado, edamame, sesame.", time: "15min", icon: "fa-bowl-food", videoUrl: "https://www.youtube.com/embed/2bOvM8YbP8M?autoplay=1" },
-      { name: "Garlic Prawn Skewers", desc: "Grilled prawns, herb marinade, zesty dip.", time: "18min", icon: "fa-utensils", videoUrl: "https://www.youtube.com/embed/lcJj6dRbD10?autoplay=1" }
+      { name: "Lemon Dill Salmon", desc: "Pan-seared salmon, lemon butter sauce, asparagus.", time: "20min", icon: "fa-fish", videoUrl: "https://www.youtube.com/embed/nRZRpPqP5cE?autoplay=1", image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=200&fit=crop" },
+      { name: "Spicy Tuna Poke Bowl", desc: "Fresh tuna, avocado, edamame, sesame.", time: "15min", icon: "fa-bowl-food", videoUrl: "https://www.youtube.com/embed/2bOvM8YbP8M?autoplay=1", image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=200&fit=crop" },
+      { name: "Garlic Prawn Skewers", desc: "Grilled prawns, herb marinade, zesty dip.", time: "18min", icon: "fa-utensils", videoUrl: "https://www.youtube.com/embed/lcJj6dRbD10?autoplay=1", image: "https://images.unsplash.com/photo-1559847844-5315695dadae?w=400&h=200&fit=crop" }
     ],
     vegetarian: [
-      { name: "Veggie Stir-fry Tofu", desc: "Colorful peppers, broccoli, tofu, ginger soy.", time: "17min", icon: "fa-seedling", videoUrl: "https://www.youtube.com/embed/cR3YuglXrLU?autoplay=1" },
-      { name: "Sweet Potato & Chickpea Curry", desc: "Coconut curry, spinach, quick rice.", time: "20min", icon: "fa-leaf", videoUrl: "https://www.youtube.com/embed/wZ5y6pjjK8g?autoplay=1" },
-      { name: "Caprese Avocado Toast", desc: "Fresh mozzarella, tomato, basil, balsamic.", time: "8min", icon: "fa-bread-slice", videoUrl: "https://www.youtube.com/embed/LXW8cHzHcEQ?autoplay=1" }
+      { name: "Veggie Stir-fry Tofu", desc: "Colorful peppers, broccoli, tofu, ginger soy.", time: "17min", icon: "fa-seedling", videoUrl: "https://www.youtube.com/embed/cR3YuglXrLU?autoplay=1", image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=200&fit=crop" },
+      { name: "Sweet Potato & Chickpea Curry", desc: "Coconut curry, spinach, quick rice.", time: "20min", icon: "fa-leaf", videoUrl: "https://www.youtube.com/embed/wZ5y6pjjK8g?autoplay=1", image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&h=200&fit=crop" },
+      { name: "Caprese Avocado Toast", desc: "Fresh mozzarella, tomato, basil, balsamic.", time: "8min", icon: "fa-bread-slice", videoUrl: "https://www.youtube.com/embed/LXW8cHzHcEQ?autoplay=1", image: "https://images.unsplash.com/photo-1603046891744-1f76eb10aec5?w=400&h=200&fit=crop" }
     ]
   };
 
   function createRecipeCard(recipe) {
-    return `<div class="recipe-card"><div class="recipe-img" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url('https://source.unsplash.com/featured/400x200/?${encodeURIComponent(recipe.name.split(' ')[0])},food'); background-size: cover;"><span class="recipe-badge"><i class="fas ${recipe.icon || 'fa-utensils'}"></i> ${recipe.time || 'quick'}</span></div><div class="recipe-info"><h4>${recipe.name}</h4><div class="recipe-desc">${recipe.desc}</div><div class="recipe-meta"><i class="far fa-clock"></i> ${recipe.time || '15-20min'}  <i class="fas fa-fire"></i> easy</div><button class="watch-btn" data-video-url="${recipe.videoUrl}"><i class="fab fa-youtube"></i> Watch video recipe</button></div></div>`;
+    const imageUrl = recipe.image || `https://source.unsplash.com/featured/400x200/?${encodeURIComponent(recipe.name.split(' ')[0])},food`;
+    return `<div class="recipe-card"><div class="recipe-img" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1)), url('${imageUrl}'); background-size: cover; background-position: center;"><span class="recipe-badge"><i class="fas ${recipe.icon || 'fa-utensils'}"></i> ${recipe.time || 'quick'}</span></div><div class="recipe-info"><h4>${recipe.name}</h4><div class="recipe-desc">${recipe.desc}</div><div class="recipe-meta"><i class="far fa-clock"></i> ${recipe.time || '15-20min'}  <i class="fas fa-fire"></i> easy</div><button class="watch-btn" data-video-url="${recipe.videoUrl}"><i class="fab fa-youtube"></i> Watch video recipe</button></div></div>`;
   }
 
   function renderAll() {
