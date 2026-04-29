@@ -17,7 +17,6 @@
     }
     .container { max-width: 1280px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
     
-    /* COVER PAGE */
     .cover-hero {
       position: relative;
       border-radius: 2rem;
@@ -261,12 +260,12 @@
   </div>
 
   <div class="categories">
-    <div class="cat-card" data-filter="quick" data-category="quick"><div class="cat-icon"><i class="fas fa-utensils"></i></div><h3>easy quick meals</h3><p>15-20 mins</p><span class="time-badge"><i class="far fa-clock"></i> 40+ recipes</span></div>
-    <div class="cat-card" data-filter="drinks" data-category="drinks"><div class="cat-icon"><i class="fas fa-cocktail"></i></div><h3>fun drinks</h3><p>mocktails · smoothies</p><span class="time-badge"><i class="far fa-clock"></i> 40+ recipes</span></div>
-    <div class="cat-card" data-filter="desserts" data-category="desserts"><div class="cat-icon"><i class="fas fa-cake-candles"></i></div><h3>Quick & tasty desserts</h3><p>under 20min</p><span class="time-badge"><i class="far fa-clock"></i> 40+ recipes</span></div>
-    <div class="cat-card" data-filter="pescetarian" data-category="pescetarian"><div class="cat-icon"><i class="fas fa-fish"></i></div><h3>Pescetarean food</h3><p>seafood & veggies</p><span class="time-badge"><i class="far fa-clock"></i> 40+ recipes</span></div>
-    <div class="cat-card" data-filter="braii" data-category="braii"><div class="cat-icon"><i class="fas fa-fire"></i></div><h3>Braii</h3><p>south african grill</p><span class="time-badge"><i class="far fa-clock"></i> 40+ recipes</span></div>
-    <div class="cat-card" data-filter="vegetarian" data-category="vegetarian"><div class="cat-icon"><i class="fas fa-leaf"></i></div><h3>vegetarian food</h3><p>plant powered</p><span class="time-badge"><i class="far fa-clock"></i> 40+ recipes</span></div>
+    <div class="cat-card" data-category="quick"><div class="cat-icon"><i class="fas fa-utensils"></i></div><h3>easy quick meals</h3><p>15-20 mins</p><span class="time-badge"><i class="far fa-clock"></i> 40+ recipes</span></div>
+    <div class="cat-card" data-category="drinks"><div class="cat-icon"><i class="fas fa-cocktail"></i></div><h3>fun drinks</h3><p>mocktails · smoothies</p><span class="time-badge"><i class="far fa-clock"></i> 40+ recipes</span></div>
+    <div class="cat-card" data-category="desserts"><div class="cat-icon"><i class="fas fa-cake-candles"></i></div><h3>Quick & tasty desserts</h3><p>under 20min</p><span class="time-badge"><i class="far fa-clock"></i> 40+ recipes</span></div>
+    <div class="cat-card" data-category="pescetarian"><div class="cat-icon"><i class="fas fa-fish"></i></div><h3>Pescetarean food</h3><p>seafood & veggies</p><span class="time-badge"><i class="far fa-clock"></i> 40+ recipes</span></div>
+    <div class="cat-card" data-category="braii"><div class="cat-icon"><i class="fas fa-fire"></i></div><h3>Braii</h3><p>south african grill</p><span class="time-badge"><i class="far fa-clock"></i> 40+ recipes</span></div>
+    <div class="cat-card" data-category="vegetarian"><div class="cat-icon"><i class="fas fa-leaf"></i></div><h3>vegetarian food</h3><p>plant powered</p><span class="time-badge"><i class="far fa-clock"></i> 40+ recipes</span></div>
   </div>
 
   <div id="recipes-app">
@@ -284,73 +283,201 @@
   </div>
 
   <div id="videoModal" class="modal"><div class="modal-content"><div class="modal-header"><h2 id="modalTitle">Recipes</h2><button class="close-modal">&times;</button></div><div id="modalGrid" class="modal-grid"></div></div></div>
-  <footer><i class="fas fa-heart" style="color:#e45c2c;"></i> TASTYLOVE — click any category to explore 40+ recipes! <i class="fas fa-utensils"></i><br>easy meals · pescetarian · braii · vegetarian · sweet treats</footer>
+  <footer><i class="fas fa-heart" style="color:#e45c2c;"></i> TASTYLOVE — click any category to explore 40+ recipes with custom images! <i class="fas fa-utensils"></i></footer>
 </div>
 
 <script>
-  // Generate 40 recipes for each category
-  function generateRecipes(category, baseName, baseDesc, baseTime, baseIcon, baseImage) {
-    const recipes = [];
-    const adjectives = ['Deluxe', 'Spicy', 'Creamy', 'Savory', 'Classic', 'Herb', 'Garlic', 'Lemon', 'Smoky', 'Zesty', 'Rich', 'Light', 'Hearty', 'Fresh', 'Warm'];
-    const proteins = ['Chicken', 'Beef', 'Tofu', 'Shrimp', 'Salmon', 'Lamb', 'Mushroom', 'Eggplant', 'Zucchini', 'Cauliflower'];
-    
-    for (let i = 1; i <= 40; i++) {
-      const adj = adjectives[i % adjectives.length];
-      const protein = proteins[i % proteins.length];
-      const uniqueName = `${adj} ${baseName} ${i}`;
-      recipes.push({
-        name: uniqueName,
-        desc: `${adj} version of ${baseDesc.toLowerCase()} - perfect for any occasion!`,
-        time: baseTime,
-        icon: baseIcon,
-        image: baseImage ? baseImage : `https://picsum.photos/id/${i + 100}/400/300`
-      });
+  // Food images database - unique images for each recipe
+  const foodImages = {
+    // Quick Meals
+    pasta: 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=400&h=200&fit=crop',
+    wrap: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400&h=200&fit=crop',
+    bowl: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=200&fit=crop',
+    burger: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=200&fit=crop',
+    pizza: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=200&fit=crop',
+    salad: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=200&fit=crop',
+    sandwich: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=400&h=200&fit=crop',
+    noodles: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=200&fit=crop',
+    rice: 'https://images.unsplash.com/photo-1516684732162-798a0062be99?w=400&h=200&fit=crop',
+    taco: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&h=200&fit=crop',
+    // Drinks
+    berry: 'berry.jpeg',
+    watermelon: 'watermelon.jpeg',
+    turmeric: 'tumeric.jpeg',
+    smoothie: 'https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=400&h=200&fit=crop',
+    matcha: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=400&h=200&fit=crop',
+    strawberry: 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400&h=200&fit=crop',
+    mojito: 'https://images.unsplash.com/photo-1546171753-97d9d3c2b8b6?w=400&h=200&fit=crop',
+    latte: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&h=200&fit=crop',
+    lemonade: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400&h=200&fit=crop',
+    juice: 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400&h=200&fit=crop',
+    // Desserts
+    brownie: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=200&fit=crop',
+    cheesecake: 'https://images.unsplash.com/photo-1542826438-bd32f43d626f?w=400&h=200&fit=crop',
+    appleFries: 'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=400&h=200&fit=crop',
+    cake: 'https://images.unsplash.com/photo-1578985545062-69928b1b958e?w=400&h=200&fit=crop',
+    cookies: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400&h=200&fit=crop',
+    icecream: 'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=400&h=200&fit=crop',
+    pudding: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&h=200&fit=crop',
+    muffin: 'https://images.unsplash.com/photo-1607958996333-41aef7caefaa?w=400&h=200&fit=crop',
+    // Seafood
+    salmon: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=200&fit=crop',
+    tuna: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=200&fit=crop',
+    prawn: 'https://images.unsplash.com/photo-1559847844-5315695dadae?w=400&h=200&fit=crop',
+    crab: 'https://images.unsplash.com/photo-1599084993091-1cb5c0721cc6?w=400&h=200&fit=crop',
+    lobster: 'https://images.unsplash.com/photo-1650721862994-6ee4f46cf8b5?w=400&h=200&fit=crop',
+    oyster: 'https://images.unsplash.com/photo-1583423239227-1c9a1a7e1b2c?w=400&h=200&fit=crop',
+    // Vegetarian
+    toast: 'toast.jpeg',
+    curry: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&h=200&fit=crop',
+    stirfry: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=200&fit=crop',
+    pastaVeg: 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=400&h=200&fit=crop',
+    burgerVeg: 'https://images.unsplash.com/photo-1585238342024-78d387f4a707?w=400&h=200&fit=crop',
+    bowlVeg: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=200&fit=crop'
+  };
+
+  // Recipe names with their corresponding image keys
+  const recipeImageMap = {
+    'Garlic Butter Shrimp Pasta': 'pasta',
+    'Chicken Avocado Wrap': 'wrap',
+    'Mediterranean Bowl': 'bowl',
+    'Sunset Berry Mocktail': 'berry',
+    'Watermelon Mint Cooler': 'watermelon',
+    'Golden Turmeric Latte': 'turmeric',
+    'Tropical Sunrise Smoothie': 'smoothie',
+    'Iced Matcha Latte': 'matcha',
+    'Strawberry Basil Smash': 'strawberry',
+    '3-Min Mug Brownie': 'brownie',
+    'No-Bake Cheesecake Jars': 'cheesecake',
+    'Cinnamon Apple Fries': 'appleFries',
+    'Lemon Dill Salmon': 'salmon',
+    'Spicy Tuna Poke Bowl': 'tuna',
+    'Garlic Prawn Skewers': 'prawn',
+    'Veggie Stir-fry Tofu': 'stirfry',
+    'Sweet Potato & Chickpea Curry': 'curry',
+    'Caprese Avocado Toast': 'toast'
+  };
+
+  function getImageForRecipe(name) {
+    const key = recipeImageMap[name];
+    if (key && foodImages[key]) {
+      return foodImages[key];
     }
-    return recipes;
+    // Fallback to unsplash with search term
+    return `https://source.unsplash.com/featured/400x300/?${encodeURIComponent(name.split(' ').slice(0,2).join('+'))},food`;
   }
 
-  const allRecipes = {
+  function generateRecipes(baseNames, category) {
+    const recipes = [];
+    const adjectives = ['Deluxe', 'Spicy', 'Creamy', 'Savory', 'Classic', 'Herb', 'Garlic', 'Lemon', 'Smoky', 'Zesty', 'Rich', 'Light', 'Hearty', 'Fresh', 'Warm', 'Golden', 'Crispy', 'Velvety', 'Aromatic', 'Tangy'];
+    const proteins = ['Chicken', 'Beef', 'Tofu', 'Shrimp', 'Salmon', 'Lamb', 'Mushroom', 'Eggplant', 'Zucchini', 'Cauliflower', 'Broccoli', 'Spinach', 'Kale', 'Quinoa', 'Lentils'];
+    
+    for (let i = 0; i < baseNames.length; i++) {
+      recipes.push(baseNames[i]);
+    }
+    
+    for (let i = recipes.length; i < 40; i++) {
+      const adj1 = adjectives[i % adjectives.length];
+      const adj2 = adjectives[(i + 7) % adjectives.length];
+      const protein = proteins[i % proteins.length];
+      let name = '';
+      let desc = '';
+      let time = '';
+      let icon = '';
+      
+      if (category === 'quick') {
+        name = `${adj1} ${protein} ${['Pasta', 'Wrap', 'Bowl', 'Salad', 'Sandwich'][i % 5]}`;
+        desc = `A delicious ${adj2.toLowerCase()} ${name.toLowerCase()} ready in minutes!`;
+        time = `${15 + (i % 10)}min`;
+        icon = 'fa-utensils';
+      } else if (category === 'drinks') {
+        name = `${adj1} ${['Mocktail', 'Smoothie', 'Latte', 'Cooler', 'Fizz'][i % 5]}`;
+        desc = `Refreshing ${adj2.toLowerCase()} ${name.toLowerCase()} perfect for any occasion.`;
+        time = `${5 + (i % 5)}min`;
+        icon = 'fa-cocktail';
+      } else if (category === 'desserts') {
+        name = `${adj1} ${['Brownie', 'Cheesecake', 'Pudding', 'Cookie', 'Cake'][i % 5]}`;
+        desc = `Sweet ${adj2.toLowerCase()} ${name.toLowerCase()} that will satisfy your cravings.`;
+        time = `${10 + (i % 10)}min`;
+        icon = 'fa-cake-candles';
+      } else if (category === 'pescetarian') {
+        name = `${adj1} ${['Salmon', 'Tuna', 'Prawn', 'Cod', 'Seafood'][i % 5]} ${['Steak', 'Bowl', 'Skewers', 'Pasta', 'Rice'][i % 5]}`;
+        desc = `Fresh ${adj2.toLowerCase()} seafood dish bursting with flavor.`;
+        time = `${15 + (i % 10)}min`;
+        icon = 'fa-fish';
+      } else if (category === 'vegetarian') {
+        name = `${adj1} ${['Veggie', 'Plant-based', 'Garden', 'Harvest', 'Earth'][i % 5]} ${['Bowl', 'Curry', 'Stir-fry', 'Pasta', 'Burger'][i % 5]}`;
+        desc = `Nutritious ${adj2.toLowerCase()} plant-powered meal.`;
+        time = `${10 + (i % 10)}min`;
+        icon = 'fa-leaf';
+      } else if (category === 'braii') {
+        name = `${adj1} Braai ${['Sosatie', 'Boerewors', 'Steak', 'Chicken', 'Lamb'][i % 5]}`;
+        desc = `Flame-grilled ${adj2.toLowerCase()} South African braai specialty.`;
+        time = `${20 + (i % 10)}min`;
+        icon = 'fa-fire';
+      }
+      
+      recipes.push({ name, desc, time, icon, customImage: false });
+    }
+    
+    return recipes.map(r => {
+      if (typeof r === 'string') {
+        const foundRecipe = mainRecipes.find(mr => mr.name === r);
+        if (foundRecipe) return foundRecipe;
+        return { name: r, desc: `Delicious ${r.toLowerCase()} made fresh!`, time: '15min', icon: 'fa-utensils', customImage: false };
+      }
+      return r;
+    });
+  }
+
+  const mainRecipes = {
     quick: [
-      { name: "Garlic Butter Shrimp Pasta", desc: "Juicy shrimp, garlic, cherry tomatoes, ready in 18min.", time: "18min", icon: "fa-shrimp", image: "garlic.jpeg" },
-      { name: "Chicken Avocado Wrap", desc: "Grilled chicken, creamy avocado, lettuce & spicy yogurt sauce.", time: "12min", icon: "fa-utensils", image: "avocado.jpeg" },
-      { name: "Mediterranean Bowl", desc: "Couscous, feta, olives, cucumber & lemon herb dressing.", time: "15min", icon: "fa-bowl-food", image: "bowl.jpeg" },
-      ...generateRecipes('quick', 'Quick Meal', 'Delicious fast meal', '15-20min', 'fa-utensils', null).slice(0, 37)
+      { name: "Garlic Butter Shrimp Pasta", desc: "Juicy shrimp, garlic, cherry tomatoes, ready in 18min.", time: "18min", icon: "fa-shrimp" },
+      { name: "Chicken Avocado Wrap", desc: "Grilled chicken, creamy avocado, lettuce & spicy yogurt sauce.", time: "12min", icon: "fa-utensils" },
+      { name: "Mediterranean Bowl", desc: "Couscous, feta, olives, cucumber & lemon herb dressing.", time: "15min", icon: "fa-bowl-food" }
     ],
     drinks: [
-      { name: "Sunset Berry Mocktail", desc: "Mixed berries, mint, lime, sparkling soda.", time: "5min", icon: "fa-wine-glass", image: "berry.jpeg" },
-      { name: "Watermelon Mint Cooler", desc: "Fresh watermelon, mint leaves, lime, sparkling water.", time: "6min", icon: "fa-wine-glass", image: "watermelon.jpeg" },
-      { name: "Golden Turmeric Latte", desc: "Turmeric, ginger, cinnamon, oat milk, honey.", time: "8min", icon: "fa-mug-hot", image: "tumeric.jpeg" },
-      { name: "Tropical Sunrise Smoothie", desc: "Pineapple, mango, orange, coconut milk, refreshing tropical delight.", time: "7min", icon: "fa-blender", image: "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=400&h=200&fit=crop" },
-      { name: "Iced Matcha Latte", desc: "Creamy matcha, oat milk, vanilla, on the rocks.", time: "5min", icon: "fa-mug-hot", image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=400&h=200&fit=crop" },
-      { name: "Strawberry Basil Smash", desc: "Fresh strawberries, basil, lemon, soda water.", time: "5min", icon: "fa-cocktail", image: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400&h=200&fit=crop" },
-      ...generateRecipes('drinks', 'Cocktail', 'Refreshing beverage', '5-8min', 'fa-cocktail', null).slice(0, 34)
+      { name: "Sunset Berry Mocktail", desc: "Mixed berries, mint, lime, sparkling soda.", time: "5min", icon: "fa-wine-glass" },
+      { name: "Watermelon Mint Cooler", desc: "Fresh watermelon, mint leaves, lime, sparkling water.", time: "6min", icon: "fa-wine-glass" },
+      { name: "Golden Turmeric Latte", desc: "Turmeric, ginger, cinnamon, oat milk, honey.", time: "8min", icon: "fa-mug-hot" },
+      { name: "Tropical Sunrise Smoothie", desc: "Pineapple, mango, orange, coconut milk, refreshing tropical delight.", time: "7min", icon: "fa-blender" },
+      { name: "Iced Matcha Latte", desc: "Creamy matcha, oat milk, vanilla, on the rocks.", time: "5min", icon: "fa-mug-hot" },
+      { name: "Strawberry Basil Smash", desc: "Fresh strawberries, basil, lemon, soda water.", time: "5min", icon: "fa-cocktail" }
     ],
     desserts: [
-      { name: "3-Min Mug Brownie", desc: "Gooey chocolate, microwave magic, top with berries.", time: "3min", icon: "fa-cake-candles", image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=200&fit=crop" },
-      { name: "No-Bake Cheesecake Jars", desc: "Creamy layers, graham crust, fruit topping.", time: "15min", icon: "fa-jar", image: "https://images.unsplash.com/photo-1542826438-bd32f43d626f?w=400&h=200&fit=crop" },
-      { name: "Cinnamon Apple Fries", desc: "Baked apple slices, cinnamon sugar, yogurt dip.", time: "12min", icon: "fa-apple-alt", image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=400&h=200&fit=crop" },
-      ...generateRecipes('desserts', 'Dessert', 'Sweet treat', '10-15min', 'fa-cake-candles', null).slice(0, 37)
+      { name: "3-Min Mug Brownie", desc: "Gooey chocolate, microwave magic, top with berries.", time: "3min", icon: "fa-cake-candles" },
+      { name: "No-Bake Cheesecake Jars", desc: "Creamy layers, graham crust, fruit topping.", time: "15min", icon: "fa-jar" },
+      { name: "Cinnamon Apple Fries", desc: "Baked apple slices, cinnamon sugar, yogurt dip.", time: "12min", icon: "fa-apple-alt" }
     ],
     pescetarian: [
-      { name: "Lemon Dill Salmon", desc: "Pan-seared salmon, lemon butter sauce, asparagus.", time: "20min", icon: "fa-fish", image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=200&fit=crop" },
-      { name: "Spicy Tuna Poke Bowl", desc: "Fresh tuna, avocado, edamame, sesame.", time: "15min", icon: "fa-bowl-food", image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=200&fit=crop" },
-      { name: "Garlic Prawn Skewers", desc: "Grilled prawns, herb marinade, zesty dip.", time: "18min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1559847844-5315695dadae?w=400&h=200&fit=crop" },
-      ...generateRecipes('pescetarian', 'Seafood Dish', 'Fresh seafood delight', '15-20min', 'fa-fish', null).slice(0, 37)
+      { name: "Lemon Dill Salmon", desc: "Pan-seared salmon, lemon butter sauce, asparagus.", time: "20min", icon: "fa-fish" },
+      { name: "Spicy Tuna Poke Bowl", desc: "Fresh tuna, avocado, edamame, sesame.", time: "15min", icon: "fa-bowl-food" },
+      { name: "Garlic Prawn Skewers", desc: "Grilled prawns, herb marinade, zesty dip.", time: "18min", icon: "fa-utensils" }
     ],
     vegetarian: [
-      { name: "Veggie Stir-fry Tofu", desc: "Colorful peppers, broccoli, tofu, ginger soy.", time: "17min", icon: "fa-seedling", image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=200&fit=crop" },
-      { name: "Sweet Potato & Chickpea Curry", desc: "Coconut curry, spinach, quick rice.", time: "20min", icon: "fa-leaf", image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&h=200&fit=crop" },
-      { name: "Caprese Avocado Toast", desc: "Fresh mozzarella, tomato, basil, balsamic.", time: "8min", icon: "fa-bread-slice", image: "toast.jpeg" },
-      ...generateRecipes('vegetarian', 'Vegetarian Dish', 'Plant-powered meal', '10-20min', 'fa-leaf', null).slice(0, 37)
+      { name: "Veggie Stir-fry Tofu", desc: "Colorful peppers, broccoli, tofu, ginger soy.", time: "17min", icon: "fa-seedling" },
+      { name: "Sweet Potato & Chickpea Curry", desc: "Coconut curry, spinach, quick rice.", time: "20min", icon: "fa-leaf" },
+      { name: "Caprese Avocado Toast", desc: "Fresh mozzarella, tomato, basil, balsamic.", time: "8min", icon: "fa-bread-slice" }
     ],
-    braii: generateRecipes('braii', 'Braii Special', 'Flame-grilled perfection', '20-30min', 'fa-fire', null)
+    braii: []
+  };
+
+  // Generate full 40+ recipe arrays
+  const allRecipes = {
+    quick: [...mainRecipes.quick, ...generateRecipes(mainRecipes.quick.map(r => r.name), 'quick').slice(0, 37)],
+    drinks: [...mainRecipes.drinks, ...generateRecipes(mainRecipes.drinks.map(r => r.name), 'drinks').slice(0, 34)],
+    desserts: [...mainRecipes.desserts, ...generateRecipes(mainRecipes.desserts.map(r => r.name), 'desserts').slice(0, 37)],
+    pescetarian: [...mainRecipes.pescetarian, ...generateRecipes(mainRecipes.pescetarian.map(r => r.name), 'pescetarian').slice(0, 37)],
+    vegetarian: [...mainRecipes.vegetarian, ...generateRecipes(mainRecipes.vegetarian.map(r => r.name), 'vegetarian').slice(0, 37)],
+    braii: generateRecipes([], 'braii')
   };
 
   function createRecipeCard(recipe, isMainPage = true) {
+    const imageUrl = getImageForRecipe(recipe.name);
     if (isMainPage) {
-      return `<div class="recipe-card" data-name="${recipe.name}" data-desc="${recipe.desc}" data-time="${recipe.time}" data-icon="${recipe.icon}" data-image="${recipe.image}"><div class="recipe-img" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1)), url('${recipe.image}'); background-size: cover; background-position: center;"><span class="recipe-badge"><i class="fas ${recipe.icon}"></i> ${recipe.time}</span></div><div class="recipe-info"><h4>${recipe.name}</h4><div class="recipe-desc">${recipe.desc}</div><div class="recipe-meta"><i class="far fa-clock"></i> ${recipe.time}  <i class="fas fa-fire"></i> easy</div></div></div>`;
+      return `<div class="recipe-card"><div class="recipe-img" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1)), url('${imageUrl}'); background-size: cover; background-position: center;"><span class="recipe-badge"><i class="fas ${recipe.icon}"></i> ${recipe.time}</span></div><div class="recipe-info"><h4>${recipe.name}</h4><div class="recipe-desc">${recipe.desc}</div><div class="recipe-meta"><i class="far fa-clock"></i> ${recipe.time}  <i class="fas fa-fire"></i> easy</div></div></div>`;
     } else {
-      return `<div class="modal-recipe-card"><div class="modal-recipe-img" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1)), url('${recipe.image}'); background-size: cover; background-position: center;"></div><div class="modal-recipe-info"><h4>${recipe.name}</h4><p>${recipe.desc}</p><div class="recipe-meta"><i class="far fa-clock"></i> ${recipe.time}  <i class="fas fa-fire"></i> easy</div></div></div>`;
+      return `<div class="modal-recipe-card"><div class="modal-recipe-img" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1)), url('${imageUrl}'); background-size: cover; background-position: center;"></div><div class="modal-recipe-info"><h4>${recipe.name}</h4><p>${recipe.desc}</p><div class="recipe-meta"><i class="far fa-clock"></i> ${recipe.time}  <i class="fas fa-fire"></i> easy</div></div></div>`;
     }
   }
 
