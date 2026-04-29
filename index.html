@@ -1,5 +1,5 @@
 
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -260,8 +260,8 @@
   </div>
 
   <div class="categories">
-    <div class="cat-card" data-category="quick"><div class="cat-icon"><i class="fas fa-utensils"></i></div><h3>easy quick meals</h3><p>15-20 mins</p><span class="time-badge"><i class="far fa-clock"></i> 40+ recipes</span></div>
-    <div class="cat-card" data-category="drinks"><div class="cat-icon"><i class="fas fa-cocktail"></i></div><h3>fun drinks</h3><p>cocktails · mocktails</p><span class="time-badge"><i class="far fa-clock"></i> 15 recipes</span></div>
+    <div class="cat-card" data-category="quick"><div class="cat-icon"><i class="fas fa-utensils"></i></div><h3>easy quick meals</h3><p>under 20 mins</p><span class="time-badge"><i class="far fa-clock"></i> 15 recipes</span></div>
+    <div class="cat-card" data-category="drinks"><div class="cat-icon"><i class="fas fa-cocktail"></i></div><h3>fun drinks</h3><p>cocktails · mocktails</p><span class="time-badge"><i class="far fa-clock"></i> 11 recipes</span></div>
     <div class="cat-card" data-category="desserts"><div class="cat-icon"><i class="fas fa-cake-candles"></i></div><h3>Quick & tasty desserts</h3><p>under 20min</p><span class="time-badge"><i class="far fa-clock"></i> 40+ recipes</span></div>
     <div class="cat-card" data-category="pescetarian"><div class="cat-icon"><i class="fas fa-fish"></i></div><h3>Pescetarean food</h3><p>seafood & veggies</p><span class="time-badge"><i class="far fa-clock"></i> 40+ recipes</span></div>
     <div class="cat-card" data-category="braii"><div class="cat-icon"><i class="fas fa-fire"></i></div><h3>Braii</h3><p>south african grill</p><span class="time-badge"><i class="far fa-clock"></i> 40+ recipes</span></div>
@@ -269,7 +269,7 @@
   </div>
 
   <div id="recipes-app">
-    <div class="section-title" id="quick-title"><i class="fas fa-bolt"></i> Easy Quick Meals · 15-20min</div>
+    <div class="section-title" id="quick-title"><i class="fas fa-bolt"></i> Easy Quick Meals · under 20min</div>
     <div class="recipe-grid" id="quick-grid"></div>
     <div class="section-title" id="drinks-title"><i class="fas fa-blender"></i> Fun Drinks & Refreshments</div>
     <div class="recipe-grid" id="drinks-grid"></div>
@@ -287,9 +287,22 @@
 </div>
 
 <script>
-  // Complete recipe database with specific images for EVERY recipe
-  
-  // FUN DRINKS - All new drinks with custom images
+  // EASY QUICK MEALS - Your requested recipes with custom images
+  const quickMeals = [
+    { name: "5-Minute Pork/Chicken Stir-Fry", desc: "Thinly sliced meat, mixed vegetables, and a savory soy-based sauce.", time: "5min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&h=200&fit=crop" },
+    { name: "Thai Basil Chicken", desc: "Ground chicken cooked with fresh basil, chiles, and aromatic garlic.", time: "12min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1604909052743-94e838986d24?w=400&h=200&fit=crop" },
+    { name: "12-Minute Peanut Noodles", desc: "Ground chicken or turkey cooked with creamy peanut butter, soy sauce, and noodles.", time: "12min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=200&fit=crop" },
+    { name: "Air-Fried Bang Bang Salmon", desc: "Salmon cooked in 8-10 minutes served with rice and steamed beans.", time: "10min", icon: "fa-fish", image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=200&fit=crop" },
+    { name: "15-Minute Sausage Meatballs", desc: "Quick sausage pan-fry served with pasta or fresh vegetables.", time: "15min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=400&h=200&fit=crop" },
+    { name: "Honey Garlic Chicken Thighs", desc: "Sticky, savory chicken cooked in a pan in roughly 20 minutes.", time: "20min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=400&h=200&fit=crop" },
+    { name: "Chicken Quesadillas", desc: "Use shredded rotisserie chicken for a quick 15-minute meal.", time: "15min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?w=400&h=200&fit=crop" },
+    { name: "Rotisserie Chicken Pitas", desc: "Salad kit, rotisserie chicken, and pitas for a zero-cook dinner.", time: "10min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400&h=200&fit=crop" },
+    { name: "White Bean-and-Spinach Caprese Salad", desc: "White beans, mozzarella pearls, tomatoes, and fresh spinach.", time: "10min", icon: "fa-leaf", image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=200&fit=crop" },
+    { name: "Creamy One-Pan Salmon and Risoni", desc: "Orzo and salmon cooked together for minimal cleanup.", time: "15min", icon: "fa-fish", image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=200&fit=crop" },
+    { name: "Beef Stroganoff", desc: "A quick, one-pot ground beef meal with creamy mushroom sauce.", time: "20min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400&h=200&fit=crop" }
+  ];
+
+  // FUN DRINKS - Your requested drinks
   const funDrinks = [
     { name: "Blue Lagoon", desc: "A bright blue cocktail made with blue curaçao, vodka, and lemonade.", time: "5min", icon: "fa-cocktail", image: "https://images.unsplash.com/photo-1546171753-97d9d3c2b8b6?w=400&h=200&fit=crop" },
     { name: "Piña Colada", desc: "Creamy blend of pineapple juice, coconut rum, and cream of coconut.", time: "7min", icon: "fa-cocktail", image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=200&fit=crop" },
@@ -304,48 +317,19 @@
     { name: "Tropical Coconut Rum Punch (Mocktail Version)", desc: "A blend of fruit juices and coconut water.", time: "6min", icon: "fa-cocktail", image: "https://images.unsplash.com/photo-1546171753-97d9d3c2b8b6?w=400&h=200&fit=crop" }
   ];
 
-  // EASY QUICK MEALS - 40 recipes with specific images
-  const quickMeals = [
-    { name: "Garlic Butter Shrimp Pasta", desc: "Juicy shrimp, garlic, cherry tomatoes, ready in 18min.", time: "18min", icon: "fa-shrimp", image: "garlic.jpeg" },
-    { name: "Chicken Avocado Wrap", desc: "Grilled chicken, creamy avocado, lettuce & spicy yogurt sauce.", time: "12min", icon: "fa-utensils", image: "avocado.jpeg" },
-    { name: "Mediterranean Bowl", desc: "Couscous, feta, olives, cucumber & lemon herb dressing.", time: "15min", icon: "fa-bowl-food", image: "bowl.jpeg" },
-    { name: "Spicy Beef Tacos", desc: "Seasoned ground beef, fresh salsa, avocado, lime crema.", time: "20min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&h=200&fit=crop" },
-    { name: "Creamy Mushroom Risotto", desc: "Arborio rice, wild mushrooms, parmesan, fresh herbs.", time: "20min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=400&h=200&fit=crop" },
-    { name: "Lemon Herb Chicken", desc: "Juicy chicken breast, lemon, rosemary, garlic butter sauce.", time: "18min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1604909052743-94e838986d24?w=400&h=200&fit=crop" },
-    { name: "Caprese Pasta Salad", desc: "Fresh mozzarella, cherry tomatoes, basil, balsamic glaze.", time: "12min", icon: "fa-bowl-food", image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=200&fit=crop" },
-    { name: "Teriyaki Salmon Bowl", desc: "Glazed salmon, steamed rice, edamame, sesame seeds.", time: "15min", icon: "fa-fish", image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=200&fit=crop" },
-    { name: "Veggie Quesadilla", desc: "Bell peppers, onions, black beans, melted cheese, salsa.", time: "10min", icon: "fa-leaf", image: "https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?w=400&h=200&fit=crop" },
-    { name: "Beef Stir Fry", desc: "Tender beef strips, broccoli, bell peppers, soy ginger sauce.", time: "15min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&h=200&fit=crop" },
-    { name: "Margherita Pizza", desc: "Fresh mozzarella, tomato sauce, basil, olive oil drizzle.", time: "20min", icon: "fa-pizza-slice", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=200&fit=crop" }
-  ];
-
-  // Generate remaining recipes to reach 40
-  const adjectives = ['Deluxe', 'Spicy', 'Creamy', 'Savory', 'Classic', 'Herb', 'Garlic', 'Lemon', 'Smoky', 'Zesty', 'Rich', 'Light', 'Hearty', 'Fresh', 'Warm', 'Golden', 'Crispy', 'Velvety', 'Aromatic', 'Tangy'];
-  const proteins = ['Chicken', 'Beef', 'Salmon', 'Shrimp', 'Tofu', 'Mushroom', 'Eggplant', 'Zucchini', 'Cauliflower', 'Broccoli'];
-  
-  for (let i = quickMeals.length; i < 40; i++) {
-    const adj = adjectives[i % adjectives.length];
-    const protein = proteins[i % proteins.length];
-    const dish = ['Pasta', 'Wrap', 'Bowl', 'Salad', 'Stir-fry', 'Quesadilla', 'Burger', 'Tacos'][i % 8];
-    quickMeals.push({
-      name: `${adj} ${protein} ${dish}`,
-      desc: `Delicious ${adj.toLowerCase()} ${dish.toLowerCase()} made with fresh ${protein.toLowerCase()}.`,
-      time: `${15 + (i % 10)}min`,
-      icon: "fa-utensils",
-      image: `https://source.unsplash.com/featured/400x300/?${protein.toLowerCase()},${dish.toLowerCase()},food`
-    });
-  }
-
-  // DESSERTS - 40 recipes with specific images
+  // DESSERTS - 40 recipes
   const desserts = [
     { name: "3-Min Mug Brownie", desc: "Gooey chocolate, microwave magic, top with berries.", time: "3min", icon: "fa-cake-candles", image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=200&fit=crop" },
     { name: "No-Bake Cheesecake Jars", desc: "Creamy layers, graham crust, fruit topping.", time: "15min", icon: "fa-jar", image: "https://images.unsplash.com/photo-1542826438-bd32f43d626f?w=400&h=200&fit=crop" },
     { name: "Cinnamon Apple Fries", desc: "Baked apple slices, cinnamon sugar, yogurt dip.", time: "12min", icon: "fa-apple-alt", image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=400&h=200&fit=crop" }
   ];
   
+  const adjectives = ['Deluxe', 'Spicy', 'Creamy', 'Savory', 'Classic', 'Herb', 'Garlic', 'Lemon', 'Smoky', 'Zesty', 'Rich', 'Light', 'Hearty', 'Fresh', 'Warm', 'Golden', 'Crispy', 'Velvety', 'Aromatic', 'Tangy'];
+  const dessertTypes = ['Brownie', 'Cheesecake', 'Pudding', 'Cookie', 'Cake', 'Sorbet', 'Mousse', 'Parfait', 'Tart', 'Cupcake'];
+  
   for (let i = desserts.length; i < 40; i++) {
     const adj = adjectives[i % adjectives.length];
-    const dessertType = ['Brownie', 'Cheesecake', 'Pudding', 'Cookie', 'Cake', 'Sorbet', 'Mousse', 'Parfait'][i % 8];
+    const dessertType = dessertTypes[i % dessertTypes.length];
     desserts.push({
       name: `${adj} ${dessertType}`,
       desc: `Sweet ${adj.toLowerCase()} ${dessertType.toLowerCase()} that will satisfy your cravings.`,
@@ -362,11 +346,13 @@
     { name: "Garlic Prawn Skewers", desc: "Grilled prawns, herb marinade, zesty dip.", time: "18min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1559847844-5315695dadae?w=400&h=200&fit=crop" }
   ];
   
-  const seafood = ['Salmon', 'Tuna', 'Prawn', 'Cod', 'Seafood', 'Crab', 'Lobster', 'Scallops'];
+  const seafood = ['Salmon', 'Tuna', 'Prawn', 'Cod', 'Seafood', 'Crab', 'Lobster', 'Scallops', 'Mussels', 'Clams'];
+  const seafoodDishes = ['Steak', 'Bowl', 'Skewers', 'Pasta', 'Rice', 'Tacos', 'Burger', 'Salad', 'Soup', 'Cakes'];
+  
   for (let i = pescetarian.length; i < 40; i++) {
     const adj = adjectives[i % adjectives.length];
     const fish = seafood[i % seafood.length];
-    const dish = ['Steak', 'Bowl', 'Skewers', 'Pasta', 'Rice', 'Tacos', 'Burger'][i % 7];
+    const dish = seafoodDishes[i % seafoodDishes.length];
     pescetarian.push({
       name: `${adj} ${fish} ${dish}`,
       desc: `Fresh ${adj.toLowerCase()} seafood dish bursting with flavor.`,
@@ -383,12 +369,13 @@
     { name: "Caprese Avocado Toast", desc: "Fresh mozzarella, tomato, basil, balsamic.", time: "8min", icon: "fa-bread-slice", image: "toast.jpeg" }
   ];
   
-  const veggies = ['Veggie', 'Plant-based', 'Garden', 'Harvest', 'Earth', 'Green', 'Fresh', 'Organic'];
+  const vegDishes = ['Bowl', 'Curry', 'Stir-fry', 'Pasta', 'Burger', 'Salad', 'Wrap', 'Quesadilla', 'Tacos', 'Soup'];
+  
   for (let i = vegetarian.length; i < 40; i++) {
-    const adj = veggies[i % veggies.length];
-    const dish = ['Bowl', 'Curry', 'Stir-fry', 'Pasta', 'Burger', 'Salad', 'Wrap', 'Quesadilla'][i % 8];
+    const adj = adjectives[i % adjectives.length];
+    const dish = vegDishes[i % vegDishes.length];
     vegetarian.push({
-      name: `${adj} ${dish}`,
+      name: `${adj} Vegetable ${dish}`,
       desc: `Nutritious plant-powered meal with fresh vegetables.`,
       time: `${10 + (i % 10)}min`,
       icon: "fa-leaf",
@@ -398,7 +385,8 @@
 
   // BRAII - 40 recipes
   const braii = [];
-  const braiiItems = ['Boerewors', 'Sosatie', 'Steak', 'Chicken', 'Lamb Chops', 'Pork Ribs', 'Spatchcock Chicken', 'Mielie Pap'];
+  const braiiItems = ['Boerewors', 'Sosatie', 'Steak', 'Chicken', 'Lamb Chops', 'Pork Ribs', 'Spatchcock Chicken', 'Mielie Pap', 'Braai Broodjie', 'Peri-Peri Chicken'];
+  
   for (let i = 0; i < 40; i++) {
     const adj = adjectives[i % adjectives.length];
     const item = braiiItems[i % braiiItems.length];
@@ -429,8 +417,8 @@
   }
 
   function renderMainPage() {
-    document.getElementById('quick-grid').innerHTML = allRecipes.quick.slice(0, 6).map(r => createRecipeCard(r, true)).join('');
-    document.getElementById('drinks-grid').innerHTML = allRecipes.drinks.slice(0, 6).map(r => createRecipeCard(r, true)).join('');
+    document.getElementById('quick-grid').innerHTML = allRecipes.quick.map(r => createRecipeCard(r, true)).join('');
+    document.getElementById('drinks-grid').innerHTML = allRecipes.drinks.map(r => createRecipeCard(r, true)).join('');
     document.getElementById('desserts-grid').innerHTML = allRecipes.desserts.slice(0, 6).map(r => createRecipeCard(r, true)).join('');
     document.getElementById('pescetarian-grid').innerHTML = allRecipes.pescetarian.slice(0, 6).map(r => createRecipeCard(r, true)).join('');
     document.getElementById('vegetarian-grid').innerHTML = allRecipes.vegetarian.slice(0, 6).map(r => createRecipeCard(r, true)).join('');
@@ -444,8 +432,8 @@
     let recipes = [];
     let title = '';
     switch(category) {
-      case 'quick': recipes = allRecipes.quick; title = 'Easy Quick Meals (40+ Recipes)'; break;
-      case 'drinks': recipes = allRecipes.drinks; title = 'Fun Drinks (15 Recipes)'; break;
+      case 'quick': recipes = allRecipes.quick; title = 'Easy Quick Meals (11 Recipes)'; break;
+      case 'drinks': recipes = allRecipes.drinks; title = 'Fun Drinks (11 Recipes)'; break;
       case 'desserts': recipes = allRecipes.desserts; title = 'Quick & Tasty Desserts (40+ Recipes)'; break;
       case 'pescetarian': recipes = allRecipes.pescetarian; title = 'Pescetarian Delights (40+ Recipes)'; break;
       case 'vegetarian': recipes = allRecipes.vegetarian; title = 'Vibrant Vegetarian (40+ Recipes)'; break;
