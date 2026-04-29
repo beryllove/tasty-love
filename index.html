@@ -1,5 +1,5 @@
 
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -448,4 +448,33 @@
       case 'drinks': recipes = allRecipes.drinks; title = 'Fun Drinks (15 Recipes)'; break;
       case 'desserts': recipes = allRecipes.desserts; title = 'Quick & Tasty Desserts (40+ Recipes)'; break;
       case 'pescetarian': recipes = allRecipes.pescetarian; title = 'Pescetarian Delights (40+ Recipes)'; break;
-      case 'vegetarian': recipes = allRecipes.vegetarian; title = 'Vibrant Vegetarian (40+
+      case 'vegetarian': recipes = allRecipes.vegetarian; title = 'Vibrant Vegetarian (40+ Recipes)'; break;
+      case 'braii': recipes = allRecipes.braii; title = 'Braii — South African Grill (40+ Recipes)'; break;
+      default: return;
+    }
+    modalTitle.textContent = title;
+    modalGrid.innerHTML = recipes.map(r => createRecipeCard(r, false)).join('');
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.cat-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const category = card.getAttribute('data-category');
+      if (category) openModal(category);
+    });
+  });
+
+  document.querySelector('.close-modal').addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.style.display === 'flex') closeModal(); });
+
+  renderMainPage();
+</script>
+</body>
+</html>
