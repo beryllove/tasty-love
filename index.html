@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,9 +9,9 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: linear-gradient(145deg, #fff9f0 0%, #fef3e2 100%);
+      background: #0a0a0a;
       font-family: 'Inter', sans-serif;
-      color: #2d2a24;
+      color: #f0f0f0;
       scroll-behavior: smooth;
     }
     .container { max-width: 1280px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
@@ -22,7 +21,7 @@
       border-radius: 2rem;
       margin-bottom: 3rem;
       overflow: hidden;
-      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2);
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
       min-height: 500px;
       background-image: url('TASTYLOVE(2).png');
       background-size: cover;
@@ -39,7 +38,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.5);
       z-index: 1;
       border-radius: 2rem;
     }
@@ -85,21 +84,21 @@
       margin: 2rem 0 3rem;
     }
     .cat-card {
-      background: white;
+      background: #1a1a1a;
       border-radius: 2rem;
       padding: 1.2rem 1.8rem;
       min-width: 140px;
       text-align: center;
-      box-shadow: 0 12px 28px -8px rgba(0,0,0,0.08);
+      box-shadow: 0 12px 28px -8px rgba(0,0,0,0.3);
       transition: all 0.25s ease;
       cursor: pointer;
-      border: 1px solid #ffe3c6;
+      border: 1px solid #333;
     }
-    .cat-card:hover { transform: translateY(-6px); box-shadow: 0 22px 32px -12px rgba(228,92,44,0.2); border-color: #f7b05e; }
+    .cat-card:hover { transform: translateY(-6px); box-shadow: 0 22px 32px -12px rgba(228,92,44,0.3); border-color: #e45c2c; }
     .cat-icon { font-size: 2.2rem; color: #e45c2c; margin-bottom: 0.5rem; }
-    .cat-card h3 { font-weight: 700; font-size: 1.2rem; margin-bottom: 0.25rem; color: #3d2a1f; }
+    .cat-card h3 { font-weight: 700; font-size: 1.2rem; margin-bottom: 0.25rem; color: #f0f0f0; }
     .cat-card p { font-size: 0.8rem; color: #a5735a; font-weight: 500; }
-    .time-badge { display: inline-block; background: #fee3c0; padding: 0.2rem 0.9rem; border-radius: 50px; font-size: 0.7rem; font-weight: 700; color: #c34a1c; margin-top: 0.5rem; }
+    .time-badge { display: inline-block; background: #2a2a2a; padding: 0.2rem 0.9rem; border-radius: 50px; font-size: 0.7rem; font-weight: 700; color: #e45c2c; margin-top: 0.5rem; }
     
     .section-title {
       font-size: 2rem;
@@ -107,7 +106,7 @@
       margin: 2.5rem 0 1rem 0;
       border-left: 7px solid #e45c2c;
       padding-left: 1rem;
-      color: #2b241e;
+      color: #f0f0f0;
       display: flex;
       align-items: center;
       gap: 0.8rem;
@@ -121,15 +120,15 @@
       margin-bottom: 2.5rem;
     }
     .recipe-card {
-      background: white;
+      background: #1a1a1a;
       border-radius: 2rem;
       overflow: hidden;
       transition: all 0.2s;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-      border: 1px solid #fae1bd;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      border: 1px solid #333;
       cursor: pointer;
     }
-    .recipe-card:hover { transform: scale(1.01); box-shadow: 0 18px 30px -12px rgba(0,0,0,0.12); }
+    .recipe-card:hover { transform: scale(1.01); box-shadow: 0 18px 30px -12px rgba(228,92,44,0.2); border-color: #e45c2c; }
     .recipe-img {
       height: 200px;
       background-size: cover;
@@ -148,7 +147,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
     }
     .recipe-badge {
       background: rgba(0,0,0,0.7);
@@ -162,34 +161,35 @@
       z-index: 1;
     }
     .recipe-info { padding: 1.2rem 1.2rem 1.5rem; }
-    .recipe-info h4 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.4rem; color: #3c2c1f; }
-    .recipe-desc { font-size: 0.85rem; color: #6f5540; margin-bottom: 0.7rem; line-height: 1.4; }
-    .recipe-meta { display: flex; gap: 1rem; font-size: 0.75rem; font-weight: 500; color: #b97f56; margin: 0.5rem 0 0.8rem; }
+    .recipe-info h4 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.4rem; color: #f0f0f0; }
+    .recipe-desc { font-size: 0.85rem; color: #a0a0a0; margin-bottom: 0.7rem; line-height: 1.4; }
+    .recipe-meta { display: flex; gap: 1rem; font-size: 0.75rem; font-weight: 500; color: #e45c2c; margin: 0.5rem 0 0.8rem; }
     .recipe-meta i { margin-right: 4px; }
     
     .braii-highlight {
-      background: linear-gradient(120deg, #fff0e0, #ffe6d0);
+      background: linear-gradient(120deg, #1a1a1a, #0d0d0d);
       border-radius: 2rem;
       padding: 2rem;
       margin: 2rem 0;
       text-align: center;
-      border: 1px solid #ffcf9a;
+      border: 1px solid #333;
     }
-    .braii-highlight h3 { font-size: 1.8rem; font-weight: 800; color: #b34314; }
+    .braii-highlight h3 { font-size: 1.8rem; font-weight: 800; color: #e45c2c; }
+    .braii-highlight p { color: #a0a0a0; }
     
     .modal {
       display: none;
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.85);
+      background-color: rgba(0,0,0,0.95);
       backdrop-filter: blur(8px);
       z-index: 1000;
       justify-content: center;
       align-items: center;
     }
     .modal-content {
-      background: #fffaf2;
+      background: #1a1a1a;
       max-width: 1200px;
       width: 95%;
       max-height: 90vh;
@@ -197,8 +197,9 @@
       border-radius: 2rem;
       padding: 1.5rem;
       position: relative;
-      box-shadow: 0 25px 40px rgba(0,0,0,0.3);
+      box-shadow: 0 25px 40px rgba(0,0,0,0.5);
       animation: fadeUp 0.3s ease;
+      border: 1px solid #333;
     }
     .modal-grid {
       display: grid;
@@ -207,13 +208,13 @@
       margin-top: 1rem;
     }
     .modal-recipe-card {
-      background: white;
+      background: #0d0d0d;
       border-radius: 1.5rem;
       overflow: hidden;
-      border: 1px solid #fae1bd;
+      border: 1px solid #333;
       transition: all 0.2s;
     }
-    .modal-recipe-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+    .modal-recipe-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(228,92,44,0.2); border-color: #e45c2c; }
     .modal-recipe-img {
       height: 160px;
       background-size: cover;
@@ -227,18 +228,19 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+      background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
     }
     .modal-recipe-info { padding: 1rem; }
-    .modal-recipe-info h4 { font-size: 1rem; font-weight: 700; color: #3c2c1f; margin-bottom: 0.3rem; }
-    .modal-recipe-info p { font-size: 0.75rem; color: #6f5540; }
-    .modal-recipe-info .recipe-meta { font-size: 0.7rem; }
+    .modal-recipe-info h4 { font-size: 1rem; font-weight: 700; color: #f0f0f0; margin-bottom: 0.3rem; }
+    .modal-recipe-info p { font-size: 0.75rem; color: #a0a0a0; }
+    .modal-recipe-info .recipe-meta { font-size: 0.7rem; color: #e45c2c; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: translateY(0);} }
-    .modal-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 2px solid #ffe3c6; margin-bottom: 1rem; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 2px solid #333; margin-bottom: 1rem; }
     .modal-header h2 { font-size: 1.8rem; color: #e45c2c; }
-    .close-modal { font-size: 2rem; cursor: pointer; background: none; border: none; color: #b1623b; }
+    .close-modal { font-size: 2rem; cursor: pointer; background: none; border: none; color: #a0a0a0; transition: color 0.2s; }
+    .close-modal:hover { color: #e45c2c; }
     
-    footer { text-align: center; margin-top: 3rem; padding: 1.5rem; border-top: 2px dashed #ffd9b5; color: #aa7a58; font-size: 0.85rem; }
+    footer { text-align: center; margin-top: 3rem; padding: 1.5rem; border-top: 2px dashed #333; color: #666; font-size: 0.85rem; }
     @media (max-width: 650px) {
       .section-title { font-size: 1.6rem; }
       .cat-card { min-width: 110px; padding: 0.8rem 1rem; }
@@ -304,22 +306,22 @@
     { name: "Beef Stroganoff", desc: "A quick, one-pot ground beef meal with creamy mushroom sauce.", time: "20min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400&h=200&fit=crop" }
   ];
 
-  // FUN DRINKS - 11 recipes
+  // FUN DRINKS - 11 recipes with custom images
   const funDrinks = [
-    { name: "Blue Lagoon", desc: "A bright blue cocktail made with blue curaçao, vodka, and lemonade.", time: "5min", icon: "fa-cocktail", image: "https://images.unsplash.com/photo-1546171753-97d9d3c2b8b6?w=400&h=200&fit=crop" },
+    { name: "Blue Lagoon", desc: "A bright blue cocktail made with blue curaçao, vodka, and lemonade.", time: "5min", icon: "fa-cocktail", image: "blue.jpg" },
     { name: "Piña Colada", desc: "Creamy blend of pineapple juice, coconut rum, and cream of coconut.", time: "7min", icon: "fa-cocktail", image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=200&fit=crop" },
     { name: "Watermelon Margarita", desc: "A frosty mix of watermelon puree, tequila, and lime.", time: "6min", icon: "fa-cocktail", image: "watermelon.jpeg" },
-    { name: "Hurricane", desc: "A sweet, bright red rum cocktail popular in New Orleans.", time: "8min", icon: "fa-cocktail", image: "https://images.unsplash.com/photo-1514218966405-25b294566b9a?w=400&h=200&fit=crop" },
+    { name: "Hurricane", desc: "A sweet, bright red rum cocktail popular in New Orleans.", time: "8min", icon: "fa-cocktail", image: "hurricane.jpg" },
     { name: "Aviation Cocktail", desc: "A light purple gin sour featuring crème de violette.", time: "6min", icon: "fa-cocktail", image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=200&fit=crop" },
-    { name: "Barrel of Fun Punch", desc: "A mix of vodka, rum, coconut rum, peach schnapps, and pineapple/orange juice.", time: "10min", icon: "fa-cocktail", image: "https://images.unsplash.com/photo-1546171753-97d9d3c2b8b6?w=400&h=200&fit=crop" },
-    { name: "Pinina Colada Sangria", desc: "White wine and coconut rum combined with pineapple juice and frozen pineapple.", time: "10min", icon: "fa-wine-glass", image: "https://images.unsplash.com/photo-1514218966405-25b294566b9a?w=400&h=200&fit=crop" },
-    { name: "Mojito Pitcher", desc: "A refreshing mix of rum, lime, mint, and soda water, easy to make for a crowd.", time: "8min", icon: "fa-cocktail", image: "https://images.unsplash.com/photo-1563221273-8aceaa7dab3a?w=400&h=200&fit=crop" },
+    { name: "Barrel of Fun Punch", desc: "A mix of vodka, rum, coconut rum, peach schnapps, and pineapple/orange juice.", time: "10min", icon: "fa-cocktail", image: "punch.jpg" },
+    { name: "Pinina Colada Sangria", desc: "White wine and coconut rum combined with pineapple juice and frozen pineapple.", time: "10min", icon: "fa-wine-glass", image: "pina.jpg" },
+    { name: "Mojito Pitcher", desc: "A refreshing mix of rum, lime, mint, and soda water, easy to make for a crowd.", time: "8min", icon: "fa-cocktail", image: "mojito.jpg" },
     { name: "Watermelon Lemonade", desc: "Freshly blended watermelon and lemonade.", time: "5min", icon: "fa-wine-glass", image: "watermelon.jpeg" },
     { name: "Pineapple & Lime Mocktail", desc: "A bright tropical mix of pineapple juice and lime.", time: "5min", icon: "fa-wine-glass", image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=200&fit=crop" },
-    { name: "Tropical Coconut Rum Punch (Mocktail Version)", desc: "A blend of fruit juices and coconut water.", time: "6min", icon: "fa-cocktail", image: "https://images.unsplash.com/photo-1546171753-97d9d3c2b8b6?w=400&h=200&fit=crop" }
+    { name: "Tropical Coconut Rum Punch", desc: "A blend of fruit juices and coconut water.", time: "6min", icon: "fa-cocktail", image: "coconut.jpg" }
   ];
 
-  // QUICK DESSERTS - 10 recipes with custom images
+  // QUICK DESSERTS - 10 recipes
   const desserts = [
     { name: "3-Min Mug Brownie", desc: "Gooey chocolate, microwave magic, top with berries.", time: "3min", icon: "fa-cake-candles", image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=200&fit=crop" },
     { name: "No-Bake Cheesecake Jars", desc: "Creamy layers, graham crust, fruit topping.", time: "15min", icon: "fa-jar", image: "https://images.unsplash.com/photo-1542826438-bd32f43d626f?w=400&h=200&fit=crop" },
@@ -393,7 +395,6 @@
   }
 
   function renderMainPage() {
-    // Show only 3 items per category on main page
     document.getElementById('quick-grid').innerHTML = allRecipes.quick.slice(0, 3).map(r => createRecipeCard(r, true)).join('');
     document.getElementById('drinks-grid').innerHTML = allRecipes.drinks.slice(0, 3).map(r => createRecipeCard(r, true)).join('');
     document.getElementById('desserts-grid').innerHTML = allRecipes.desserts.slice(0, 3).map(r => createRecipeCard(r, true)).join('');
