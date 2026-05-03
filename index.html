@@ -1,5 +1,5 @@
 
-    <!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -291,99 +291,207 @@
 </div>
 
 <script>
+  // IMAGE MAPPING SYSTEM - Automatically matches uploaded images to recipes
+  // Add any image filename and the recipe name it should match to
+  
+  const imageMapping = {
+    // Drink images
+    'blue.jpg': ['Blue Lagoon'],
+    'pina.jpg': ['Pinina Colada Sangria', 'Piña Colada Sangria'],
+    'mojito.jpg': ['Mojito Pitcher'],
+    'coconut.jpg': ['Tropical Coconut Rum Punch'],
+    'punch.jpg': ['Barrel of Fun Punch'],
+    'hurricane.jpg': ['Hurricane'],
+    'watermelon.jpeg': ['Watermelon Margarita', 'Watermelon Lemonade'],
+    
+    // Dessert images
+    'churros.jpg': ['Churros with Chocolate Sauce'],
+    'rice.jpg': ['Rice Pudding'],
+    'lemmon.jpg': ['Lemon Bars'],
+    'burger.jpg': ['Black Bean Burgers'],
+    
+    // Pescetarian images
+    'crab.jpg': ['Crab Cakes'],
+    'sardine.jpg': ['Grilled Sardines'],
+    
+    // Braii images
+    'periperi.jpg': ['Peri-Peri Chicken'],
+    'pap.jpg': ['Mielie Pap'],
+    
+    // Quick meal images (from earlier)
+    'garlic.jpeg': ['Garlic Butter Shrimp Pasta'],
+    'avocado.jpeg': ['Chicken Avocado Wrap'],
+    'bowl.jpeg': ['Mediterranean Bowl'],
+    'toast.jpeg': ['Caprese Avocado Toast']
+  };
+  
+  // Fallback images for recipes without custom uploads
+  const fallbackImages = {
+    '5-Minute Pork/Chicken Stir-Fry': 'https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&h=200&fit=crop',
+    'Thai Basil Chicken': 'https://images.unsplash.com/photo-1604909052743-94e838986d24?w=400&h=200&fit=crop',
+    '12-Minute Peanut Noodles': 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=200&fit=crop',
+    'Air-Fried Bang Bang Salmon': 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=200&fit=crop',
+    '15-Minute Sausage Meatballs': 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=400&h=200&fit=crop',
+    'Honey Garlic Chicken Thighs': 'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=400&h=200&fit=crop',
+    'Chicken Quesadillas': 'https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?w=400&h=200&fit=crop',
+    'Rotisserie Chicken Pitas': 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400&h=200&fit=crop',
+    'White Bean-and-Spinach Caprese Salad': 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=200&fit=crop',
+    'Creamy One-Pan Salmon and Risoni': 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=200&fit=crop',
+    'Beef Stroganoff': 'https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400&h=200&fit=crop',
+    'Piña Colada': 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=200&fit=crop',
+    'Aviation Cocktail': 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=200&fit=crop',
+    'Pineapple & Lime Mocktail': 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=200&fit=crop',
+    '3-Min Mug Brownie': 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=200&fit=crop',
+    'No-Bake Cheesecake Jars': 'https://images.unsplash.com/photo-1542826438-bd32f43d626f?w=400&h=200&fit=crop',
+    'Cinnamon Apple Fries': 'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=400&h=200&fit=crop',
+    'Chocolate Lava Cake': 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=200&fit=crop',
+    'Strawberry Shortcake': 'https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?w=400&h=200&fit=crop',
+    'Fruit Sorbet': 'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=400&h=200&fit=crop',
+    'Tiramisu Cups': 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400&h=200&fit=crop',
+    'Lemon Dill Salmon': 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=200&fit=crop',
+    'Spicy Tuna Poke Bowl': 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=200&fit=crop',
+    'Garlic Prawn Skewers': 'https://images.unsplash.com/photo-1559847844-5315695dadae?w=400&h=200&fit=crop',
+    'Seafood Paella': 'https://images.unsplash.com/photo-1534080564583-6be75777b70a?w=400&h=200&fit=crop',
+    'Grilled Octopus': 'https://images.unsplash.com/photo-1559847844-5315695dadae?w=400&h=200&fit=crop',
+    'Miso Glazed Cod': 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=200&fit=crop',
+    'Coconut Shrimp Curry': 'https://images.unsplash.com/photo-1559847844-5315695dadae?w=400&h=200&fit=crop',
+    'Sesame Crusted Tuna': 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=200&fit=crop',
+    'Veggie Stir-fry Tofu': 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=200&fit=crop',
+    'Sweet Potato & Chickpea Curry': 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&h=200&fit=crop',
+    'Mushroom Risotto': 'https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=400&h=200&fit=crop',
+    'Eggplant Parmesan': 'https://images.unsplash.com/photo-1598866594230-a7c12756260f?w=400&h=200&fit=crop',
+    'Zucchini Noodles Pesto': 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=400&h=200&fit=crop',
+    'Cauliflower Buffalo Wings': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=200&fit=crop',
+    'Spinach & Feta Pie': 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400&h=200&fit=crop',
+    'Lentil Soup': 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&h=200&fit=crop',
+    'Traditional Boerewors': 'https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?w=400&h=200&fit=crop',
+    'Lamb Sosatie': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=200&fit=crop',
+    'Braai Steak': 'https://images.unsplash.com/photo-1603048297172-c92544798d5a?w=400&h=200&fit=crop',
+    'Grilled Pork Ribs': 'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=200&fit=crop',
+    'Spatchcock Chicken': 'https://images.unsplash.com/photo-1604909052743-94e838986d24?w=400&h=200&fit=crop',
+    'Braai Broodjie': 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=400&h=200&fit=crop',
+    'Snoek Braai': 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=200&fit=crop',
+    'Chakalaka Relish': 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=200&fit=crop'
+  };
+  
+  // Function to get image for a recipe
+  function getImageForRecipe(recipeName) {
+    // First, check if any uploaded image matches this recipe
+    for (const [imageFile, recipeNames] of Object.entries(imageMapping)) {
+      if (recipeNames.some(name => recipeName.toLowerCase().includes(name.toLowerCase()) || 
+          name.toLowerCase().includes(recipeName.toLowerCase()))) {
+        return imageFile;
+      }
+    }
+    // Then check fallback images
+    if (fallbackImages[recipeName]) {
+      return fallbackImages[recipeName];
+    }
+    // Default fallback
+    return `https://source.unsplash.com/featured/400x300/?${encodeURIComponent(recipeName.split(' ').slice(0,2).join('+'))},food`;
+  }
+
   // EASY QUICK MEALS - 11 recipes
   const quickMeals = [
-    { name: "5-Minute Pork/Chicken Stir-Fry", desc: "Thinly sliced meat, mixed vegetables, and a savory soy-based sauce.", time: "5min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&h=200&fit=crop" },
-    { name: "Thai Basil Chicken", desc: "Ground chicken cooked with fresh basil, chiles, and aromatic garlic.", time: "12min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1604909052743-94e838986d24?w=400&h=200&fit=crop" },
-    { name: "12-Minute Peanut Noodles", desc: "Ground chicken or turkey cooked with creamy peanut butter, soy sauce, and noodles.", time: "12min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=200&fit=crop" },
-    { name: "Air-Fried Bang Bang Salmon", desc: "Salmon cooked in 8-10 minutes served with rice and steamed beans.", time: "10min", icon: "fa-fish", image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=200&fit=crop" },
-    { name: "15-Minute Sausage Meatballs", desc: "Quick sausage pan-fry served with pasta or fresh vegetables.", time: "15min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=400&h=200&fit=crop" },
-    { name: "Honey Garlic Chicken Thighs", desc: "Sticky, savory chicken cooked in a pan in roughly 20 minutes.", time: "20min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=400&h=200&fit=crop" },
-    { name: "Chicken Quesadillas", desc: "Use shredded rotisserie chicken for a quick 15-minute meal.", time: "15min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?w=400&h=200&fit=crop" },
-    { name: "Rotisserie Chicken Pitas", desc: "Salad kit, rotisserie chicken, and pitas for a zero-cook dinner.", time: "10min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400&h=200&fit=crop" },
-    { name: "White Bean-and-Spinach Caprese Salad", desc: "White beans, mozzarella pearls, tomatoes, and fresh spinach.", time: "10min", icon: "fa-leaf", image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=200&fit=crop" },
-    { name: "Creamy One-Pan Salmon and Risoni", desc: "Orzo and salmon cooked together for minimal cleanup.", time: "15min", icon: "fa-fish", image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=200&fit=crop" },
-    { name: "Beef Stroganoff", desc: "A quick, one-pot ground beef meal with creamy mushroom sauce.", time: "20min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400&h=200&fit=crop" }
+    { name: "5-Minute Pork/Chicken Stir-Fry", desc: "Thinly sliced meat, mixed vegetables, and a savory soy-based sauce.", time: "5min", icon: "fa-utensils" },
+    { name: "Thai Basil Chicken", desc: "Ground chicken cooked with fresh basil, chiles, and aromatic garlic.", time: "12min", icon: "fa-utensils" },
+    { name: "12-Minute Peanut Noodles", desc: "Ground chicken or turkey cooked with creamy peanut butter, soy sauce, and noodles.", time: "12min", icon: "fa-utensils" },
+    { name: "Air-Fried Bang Bang Salmon", desc: "Salmon cooked in 8-10 minutes served with rice and steamed beans.", time: "10min", icon: "fa-fish" },
+    { name: "15-Minute Sausage Meatballs", desc: "Quick sausage pan-fry served with pasta or fresh vegetables.", time: "15min", icon: "fa-utensils" },
+    { name: "Honey Garlic Chicken Thighs", desc: "Sticky, savory chicken cooked in a pan in roughly 20 minutes.", time: "20min", icon: "fa-utensils" },
+    { name: "Chicken Quesadillas", desc: "Use shredded rotisserie chicken for a quick 15-minute meal.", time: "15min", icon: "fa-utensils" },
+    { name: "Rotisserie Chicken Pitas", desc: "Salad kit, rotisserie chicken, and pitas for a zero-cook dinner.", time: "10min", icon: "fa-utensils" },
+    { name: "White Bean-and-Spinach Caprese Salad", desc: "White beans, mozzarella pearls, tomatoes, and fresh spinach.", time: "10min", icon: "fa-leaf" },
+    { name: "Creamy One-Pan Salmon and Risoni", desc: "Orzo and salmon cooked together for minimal cleanup.", time: "15min", icon: "fa-fish" },
+    { name: "Beef Stroganoff", desc: "A quick, one-pot ground beef meal with creamy mushroom sauce.", time: "20min", icon: "fa-utensils" }
   ];
 
-  // FUN DRINKS - 11 recipes with custom images
+  // FUN DRINKS - 11 recipes
   const funDrinks = [
-    { name: "Blue Lagoon", desc: "A bright blue cocktail made with blue curaçao, vodka, and lemonade.", time: "5min", icon: "fa-cocktail", image: "blue.jpg" },
-    { name: "Piña Colada", desc: "Creamy blend of pineapple juice, coconut rum, and cream of coconut.", time: "7min", icon: "fa-cocktail", image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=200&fit=crop" },
-    { name: "Watermelon Margarita", desc: "A frosty mix of watermelon puree, tequila, and lime.", time: "6min", icon: "fa-cocktail", image: "watermelon.jpeg" },
-    { name: "Hurricane", desc: "A sweet, bright red rum cocktail popular in New Orleans.", time: "8min", icon: "fa-cocktail", image: "hurricane.jpg" },
-    { name: "Aviation Cocktail", desc: "A light purple gin sour featuring crème de violette.", time: "6min", icon: "fa-cocktail", image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=200&fit=crop" },
-    { name: "Barrel of Fun Punch", desc: "A mix of vodka, rum, coconut rum, peach schnapps, and pineapple/orange juice.", time: "10min", icon: "fa-cocktail", image: "punch.jpg" },
-    { name: "Pinina Colada Sangria", desc: "White wine and coconut rum combined with pineapple juice and frozen pineapple.", time: "10min", icon: "fa-wine-glass", image: "pina.jpg" },
-    { name: "Mojito Pitcher", desc: "A refreshing mix of rum, lime, mint, and soda water, easy to make for a crowd.", time: "8min", icon: "fa-cocktail", image: "mojito.jpg" },
-    { name: "Watermelon Lemonade", desc: "Freshly blended watermelon and lemonade.", time: "5min", icon: "fa-wine-glass", image: "watermelon.jpeg" },
-    { name: "Pineapple & Lime Mocktail", desc: "A bright tropical mix of pineapple juice and lime.", time: "5min", icon: "fa-wine-glass", image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=200&fit=crop" },
-    { name: "Tropical Coconut Rum Punch", desc: "A blend of fruit juices and coconut water.", time: "6min", icon: "fa-cocktail", image: "coconut.jpg" }
+    { name: "Blue Lagoon", desc: "A bright blue cocktail made with blue curaçao, vodka, and lemonade.", time: "5min", icon: "fa-cocktail" },
+    { name: "Piña Colada", desc: "Creamy blend of pineapple juice, coconut rum, and cream of coconut.", time: "7min", icon: "fa-cocktail" },
+    { name: "Watermelon Margarita", desc: "A frosty mix of watermelon puree, tequila, and lime.", time: "6min", icon: "fa-cocktail" },
+    { name: "Hurricane", desc: "A sweet, bright red rum cocktail popular in New Orleans.", time: "8min", icon: "fa-cocktail" },
+    { name: "Aviation Cocktail", desc: "A light purple gin sour featuring crème de violette.", time: "6min", icon: "fa-cocktail" },
+    { name: "Barrel of Fun Punch", desc: "A mix of vodka, rum, coconut rum, peach schnapps, and pineapple/orange juice.", time: "10min", icon: "fa-cocktail" },
+    { name: "Pinina Colada Sangria", desc: "White wine and coconut rum combined with pineapple juice and frozen pineapple.", time: "10min", icon: "fa-wine-glass" },
+    { name: "Mojito Pitcher", desc: "A refreshing mix of rum, lime, mint, and soda water, easy to make for a crowd.", time: "8min", icon: "fa-cocktail" },
+    { name: "Watermelon Lemonade", desc: "Freshly blended watermelon and lemonade.", time: "5min", icon: "fa-wine-glass" },
+    { name: "Pineapple & Lime Mocktail", desc: "A bright tropical mix of pineapple juice and lime.", time: "5min", icon: "fa-wine-glass" },
+    { name: "Tropical Coconut Rum Punch", desc: "A blend of fruit juices and coconut water.", time: "6min", icon: "fa-cocktail" }
   ];
 
-  // QUICK DESSERTS - 10 recipes with custom images
+  // QUICK DESSERTS - 10 recipes
   const desserts = [
-    { name: "3-Min Mug Brownie", desc: "Gooey chocolate, microwave magic, top with berries.", time: "3min", icon: "fa-cake-candles", image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=200&fit=crop" },
-    { name: "No-Bake Cheesecake Jars", desc: "Creamy layers, graham crust, fruit topping.", time: "15min", icon: "fa-jar", image: "https://images.unsplash.com/photo-1542826438-bd32f43d626f?w=400&h=200&fit=crop" },
-    { name: "Cinnamon Apple Fries", desc: "Baked apple slices, cinnamon sugar, yogurt dip.", time: "12min", icon: "fa-apple-alt", image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=400&h=200&fit=crop" },
-    { name: "Chocolate Lava Cake", desc: "Warm molten chocolate center with powdered sugar.", time: "15min", icon: "fa-cake-candles", image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=200&fit=crop" },
-    { name: "Strawberry Shortcake", desc: "Fresh strawberries, whipped cream, buttery biscuits.", time: "12min", icon: "fa-cake-candles", image: "https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?w=400&h=200&fit=crop" },
-    { name: "Churros with Chocolate Sauce", desc: "Crispy cinnamon sugar churros, warm chocolate dip.", time: "15min", icon: "fa-utensils", image: "churros.jpg" },
-    { name: "Fruit Sorbet", desc: "Mixed berries, mango, coconut water, refreshing treat.", time: "10min", icon: "fa-ice-cream", image: "https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=400&h=200&fit=crop" },
-    { name: "Tiramisu Cups", desc: "Coffee-soaked ladyfingers, mascarpone cream, cocoa powder.", time: "15min", icon: "fa-cake-candles", image: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400&h=200&fit=crop" },
-    { name: "Lemon Bars", desc: "Tangy lemon filling, buttery shortbread crust, powdered sugar.", time: "18min", icon: "fa-cake-candles", image: "lemmon.jpg" },
-    { name: "Rice Pudding", desc: "Creamy arborio rice, cinnamon, vanilla, raisins optional.", time: "20min", icon: "fa-utensils", image: "rice.jpg" }
+    { name: "3-Min Mug Brownie", desc: "Gooey chocolate, microwave magic, top with berries.", time: "3min", icon: "fa-cake-candles" },
+    { name: "No-Bake Cheesecake Jars", desc: "Creamy layers, graham crust, fruit topping.", time: "15min", icon: "fa-jar" },
+    { name: "Cinnamon Apple Fries", desc: "Baked apple slices, cinnamon sugar, yogurt dip.", time: "12min", icon: "fa-apple-alt" },
+    { name: "Chocolate Lava Cake", desc: "Warm molten chocolate center with powdered sugar.", time: "15min", icon: "fa-cake-candles" },
+    { name: "Strawberry Shortcake", desc: "Fresh strawberries, whipped cream, buttery biscuits.", time: "12min", icon: "fa-cake-candles" },
+    { name: "Churros with Chocolate Sauce", desc: "Crispy cinnamon sugar churros, warm chocolate dip.", time: "15min", icon: "fa-utensils" },
+    { name: "Fruit Sorbet", desc: "Mixed berries, mango, coconut water, refreshing treat.", time: "10min", icon: "fa-ice-cream" },
+    { name: "Tiramisu Cups", desc: "Coffee-soaked ladyfingers, mascarpone cream, cocoa powder.", time: "15min", icon: "fa-cake-candles" },
+    { name: "Lemon Bars", desc: "Tangy lemon filling, buttery shortbread crust, powdered sugar.", time: "18min", icon: "fa-cake-candles" },
+    { name: "Rice Pudding", desc: "Creamy arborio rice, cinnamon, vanilla, raisins optional.", time: "20min", icon: "fa-utensils" }
   ];
 
-  // PESCETARIAN - 10 recipes with custom images
+  // PESCETARIAN - 10 recipes
   const pescetarian = [
-    { name: "Lemon Dill Salmon", desc: "Pan-seared salmon, lemon butter sauce, asparagus.", time: "20min", icon: "fa-fish", image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=200&fit=crop" },
-    { name: "Spicy Tuna Poke Bowl", desc: "Fresh tuna, avocado, edamame, sesame.", time: "15min", icon: "fa-bowl-food", image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=200&fit=crop" },
-    { name: "Garlic Prawn Skewers", desc: "Grilled prawns, herb marinade, zesty dip.", time: "18min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1559847844-5315695dadae?w=400&h=200&fit=crop" },
-    { name: "Grilled Sardines", desc: "Fresh sardines, lemon, olive oil, parsley, sea salt.", time: "15min", icon: "fa-fish", image: "sardine.jpg" },
-    { name: "Crab Cakes", desc: "Lump crab meat, breadcrumbs, remoulade sauce.", time: "20min", icon: "fa-utensils", image: "crab.jpg" },
-    { name: "Seafood Paella", desc: "Shrimp, mussels, clams, saffron rice, peas.", time: "20min", icon: "fa-bowl-food", image: "https://images.unsplash.com/photo-1534080564583-6be75777b70a?w=400&h=200&fit=crop" },
-    { name: "Grilled Octopus", desc: "Tender octopus, olive oil, paprika, lemon, potatoes.", time: "20min", icon: "fa-fish", image: "https://images.unsplash.com/photo-1559847844-5315695dadae?w=400&h=200&fit=crop" },
-    { name: "Miso Glazed Cod", desc: "Buttery cod, sweet miso glaze, bok choy.", time: "18min", icon: "fa-fish", image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=200&fit=crop" },
-    { name: "Coconut Shrimp Curry", desc: "Shrimp, coconut milk, red curry, bell peppers, basil.", time: "20min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1559847844-5315695dadae?w=400&h=200&fit=crop" },
-    { name: "Sesame Crusted Tuna", desc: "Seared tuna, sesame seeds, wasabi, soy dipping sauce.", time: "12min", icon: "fa-fish", image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=200&fit=crop" }
+    { name: "Lemon Dill Salmon", desc: "Pan-seared salmon, lemon butter sauce, asparagus.", time: "20min", icon: "fa-fish" },
+    { name: "Spicy Tuna Poke Bowl", desc: "Fresh tuna, avocado, edamame, sesame.", time: "15min", icon: "fa-bowl-food" },
+    { name: "Garlic Prawn Skewers", desc: "Grilled prawns, herb marinade, zesty dip.", time: "18min", icon: "fa-utensils" },
+    { name: "Grilled Sardines", desc: "Fresh sardines, lemon, olive oil, parsley, sea salt.", time: "15min", icon: "fa-fish" },
+    { name: "Crab Cakes", desc: "Lump crab meat, breadcrumbs, remoulade sauce.", time: "20min", icon: "fa-utensils" },
+    { name: "Seafood Paella", desc: "Shrimp, mussels, clams, saffron rice, peas.", time: "20min", icon: "fa-bowl-food" },
+    { name: "Grilled Octopus", desc: "Tender octopus, olive oil, paprika, lemon, potatoes.", time: "20min", icon: "fa-fish" },
+    { name: "Miso Glazed Cod", desc: "Buttery cod, sweet miso glaze, bok choy.", time: "18min", icon: "fa-fish" },
+    { name: "Coconut Shrimp Curry", desc: "Shrimp, coconut milk, red curry, bell peppers, basil.", time: "20min", icon: "fa-utensils" },
+    { name: "Sesame Crusted Tuna", desc: "Seared tuna, sesame seeds, wasabi, soy dipping sauce.", time: "12min", icon: "fa-fish" }
   ];
 
-  // VEGETARIAN - 10 recipes with custom images
+  // VEGETARIAN - 10 recipes
   const vegetarian = [
-    { name: "Veggie Stir-fry Tofu", desc: "Colorful peppers, broccoli, tofu, ginger soy.", time: "17min", icon: "fa-seedling", image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=200&fit=crop" },
-    { name: "Sweet Potato & Chickpea Curry", desc: "Coconut curry, spinach, quick rice.", time: "20min", icon: "fa-leaf", image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&h=200&fit=crop" },
-    { name: "Caprese Avocado Toast", desc: "Fresh mozzarella, tomato, basil, balsamic.", time: "8min", icon: "fa-bread-slice", image: "toast.jpeg" },
-    { name: "Mushroom Risotto", desc: "Creamy arborio rice, wild mushrooms, parmesan, truffle oil.", time: "20min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=400&h=200&fit=crop" },
-    { name: "Eggplant Parmesan", desc: "Breaded eggplant, marinara, mozzarella, fresh basil.", time: "20min", icon: "fa-leaf", image: "https://images.unsplash.com/photo-1598866594230-a7c12756260f?w=400&h=200&fit=crop" },
-    { name: "Zucchini Noodles Pesto", desc: "Spiralized zucchini, fresh basil pesto, cherry tomatoes.", time: "10min", icon: "fa-leaf", image: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=400&h=200&fit=crop" },
-    { name: "Black Bean Burgers", desc: "Homemade black bean patty, avocado, lettuce, spicy mayo.", time: "15min", icon: "fa-leaf", image: "burger.jpg" },
-    { name: "Cauliflower Buffalo Wings", desc: "Crispy cauliflower, spicy buffalo sauce, ranch dip.", time: "18min", icon: "fa-leaf", image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=200&fit=crop" },
-    { name: "Spinach & Feta Pie", desc: "Flaky phyllo dough, spinach, feta cheese, eggs, dill.", time: "20min", icon: "fa-utensils", image: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400&h=200&fit=crop" },
-    { name: "Lentil Soup", desc: "Hearty lentils, vegetables, cumin, lemon, fresh parsley.", time: "20min", icon: "fa-leaf", image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&h=200&fit=crop" }
+    { name: "Veggie Stir-fry Tofu", desc: "Colorful peppers, broccoli, tofu, ginger soy.", time: "17min", icon: "fa-seedling" },
+    { name: "Sweet Potato & Chickpea Curry", desc: "Coconut curry, spinach, quick rice.", time: "20min", icon: "fa-leaf" },
+    { name: "Caprese Avocado Toast", desc: "Fresh mozzarella, tomato, basil, balsamic.", time: "8min", icon: "fa-bread-slice" },
+    { name: "Mushroom Risotto", desc: "Creamy arborio rice, wild mushrooms, parmesan, truffle oil.", time: "20min", icon: "fa-utensils" },
+    { name: "Eggplant Parmesan", desc: "Breaded eggplant, marinara, mozzarella, fresh basil.", time: "20min", icon: "fa-leaf" },
+    { name: "Zucchini Noodles Pesto", desc: "Spiralized zucchini, fresh basil pesto, cherry tomatoes.", time: "10min", icon: "fa-leaf" },
+    { name: "Black Bean Burgers", desc: "Homemade black bean patty, avocado, lettuce, spicy mayo.", time: "15min", icon: "fa-leaf" },
+    { name: "Cauliflower Buffalo Wings", desc: "Crispy cauliflower, spicy buffalo sauce, ranch dip.", time: "18min", icon: "fa-leaf" },
+    { name: "Spinach & Feta Pie", desc: "Flaky phyllo dough, spinach, feta cheese, eggs, dill.", time: "20min", icon: "fa-utensils" },
+    { name: "Lentil Soup", desc: "Hearty lentils, vegetables, cumin, lemon, fresh parsley.", time: "20min", icon: "fa-leaf" }
   ];
 
-  // BRAII - 10 recipes with custom images
+  // BRAII - 10 recipes
   const braii = [
-    { name: "Traditional Boerewors", desc: "South African beef sausage, flame-grilled to perfection.", time: "15min", icon: "fa-fire", image: "https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?w=400&h=200&fit=crop" },
-    { name: "Peri-Peri Chicken", desc: "Spicy Portuguese-style chicken, grilled, served with lemon.", time: "20min", icon: "fa-fire", image: "periperi.jpg" },
-    { name: "Lamb Sosatie", desc: "Marinated lamb skewers, apricots, onions, curry flavor.", time: "18min", icon: "fa-fire", image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=200&fit=crop" },
-    { name: "Braai Steak", desc: "Thick-cut beef steak, seasoned simply, cooked over coals.", time: "15min", icon: "fa-fire", image: "https://images.unsplash.com/photo-1603048297172-c92544798d5a?w=400&h=200&fit=crop" },
-    { name: "Grilled Pork Ribs", desc: "Sticky BBQ pork ribs, slow-grilled, fall-off-the-bone tender.", time: "20min", icon: "fa-fire", image: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=200&fit=crop" },
-    { name: "Spatchcock Chicken", desc: "Butterflied chicken, herb marinade, crispy skin.", time: "20min", icon: "fa-fire", image: "https://images.unsplash.com/photo-1604909052743-94e838986d24?w=400&h=200&fit=crop" },
-    { name: "Braai Broodjie", desc: "Grilled cheese sandwich, tomato, onion, chutney.", time: "10min", icon: "fa-fire", image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=400&h=200&fit=crop" },
-    { name: "Mielie Pap", desc: "Traditional maize porridge, grilled corn, butter, salt.", time: "15min", icon: "fa-fire", image: "pap.jpg" },
-    { name: "Snoek Braai", desc: "Whole grilled snoek fish, apricot jam, butter, lemon.", time: "18min", icon: "fa-fire", image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=200&fit=crop" },
-    { name: "Chakalaka Relish", desc: "Spicy vegetable relish, beans, peppers, served with pap.", time: "15min", icon: "fa-fire", image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=200&fit=crop" }
+    { name: "Traditional Boerewors", desc: "South African beef sausage, flame-grilled to perfection.", time: "15min", icon: "fa-fire" },
+    { name: "Peri-Peri Chicken", desc: "Spicy Portuguese-style chicken, grilled, served with lemon.", time: "20min", icon: "fa-fire" },
+    { name: "Lamb Sosatie", desc: "Marinated lamb skewers, apricots, onions, curry flavor.", time: "18min", icon: "fa-fire" },
+    { name: "Braai Steak", desc: "Thick-cut beef steak, seasoned simply, cooked over coals.", time: "15min", icon: "fa-fire" },
+    { name: "Grilled Pork Ribs", desc: "Sticky BBQ pork ribs, slow-grilled, fall-off-the-bone tender.", time: "20min", icon: "fa-fire" },
+    { name: "Spatchcock Chicken", desc: "Butterflied chicken, herb marinade, crispy skin.", time: "20min", icon: "fa-fire" },
+    { name: "Braai Broodjie", desc: "Grilled cheese sandwich, tomato, onion, chutney.", time: "10min", icon: "fa-fire" },
+    { name: "Mielie Pap", desc: "Traditional maize porridge, grilled corn, butter, salt.", time: "15min", icon: "fa-fire" },
+    { name: "Snoek Braai", desc: "Whole grilled snoek fish, apricot jam, butter, lemon.", time: "18min", icon: "fa-fire" },
+    { name: "Chakalaka Relish", desc: "Spicy vegetable relish, beans, peppers, served with pap.", time: "15min", icon: "fa-fire" }
   ];
+
+  // Add images to all recipes
+  function addImagesToRecipes(recipes) {
+    return recipes.map(recipe => ({
+      ...recipe,
+      image: getImageForRecipe(recipe.name)
+    }));
+  }
 
   const allRecipes = {
-    quick: quickMeals,
-    drinks: funDrinks,
-    desserts: desserts,
-    pescetarian: pescetarian,
-    vegetarian: vegetarian,
-    braii: braii
+    quick: addImagesToRecipes(quickMeals),
+    drinks: addImagesToRecipes(funDrinks),
+    desserts: addImagesToRecipes(desserts),
+    pescetarian: addImagesToRecipes(pescetarian),
+    vegetarian: addImagesToRecipes(vegetarian),
+    braii: addImagesToRecipes(braii)
   };
 
   function createRecipeCard(recipe, isMainPage = true) {
