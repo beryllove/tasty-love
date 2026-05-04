@@ -410,40 +410,74 @@
     'Beef Stroganoff': {
       ingredients: ["1 lb ground beef", "8 oz mushrooms, sliced", "1 onion, diced", "2 cloves garlic, minced", "2 tbsp flour", "2 cups beef broth", "1 cup sour cream", "8 oz egg noodles", "Salt and pepper to taste", "Fresh parsley for garnish"],
       instructions: ["Cook egg noodles according to package directions. Drain and set aside.", "In a large skillet, brown ground beef over medium heat. Drain excess fat.", "Add mushrooms, onion, and garlic. Cook until softened.", "Sprinkle flour over the meat and stir to coat.", "Gradually add beef broth, stirring constantly until thickened.", "Reduce heat to low and stir in sour cream.", "Season with salt and pepper.", "Serve over egg noodles, garnished with parsley."]
-    },
-    // Additional recipes would be added here for all categories...
+    }
   };
 
-  // Function to get recipe details
+  // Function to get recipe details with fallback
   function getRecipeDetails(recipeName) {
     if (fullRecipesDB[recipeName]) {
       return fullRecipesDB[recipeName];
     }
-    // Default recipe structure
+    // Default recipe structure for any missing recipes
     return {
       ingredients: ["Ingredients for " + recipeName, "2 tbsp olive oil", "Salt and pepper to taste", "Fresh herbs for garnish"],
       instructions: ["Prepare all ingredients as needed.", "Follow standard cooking method for this dish.", "Cook until properly done and season to taste.", "Serve hot and enjoy!"]
     };
   }
 
-  // Image mapping
+  // COMPLETE IMAGE MAPPING - All your existing pictures preserved
   const imageMapping = {
-    'blue.jpg': ['Blue Lagoon'], 'pina.jpg': ['Pinina Colada Sangria'], 'mojito.jpg': ['Mojito Pitcher'],
-    'coconut.jpg': ['Tropical Coconut Rum Punch'], 'punch.jpg': ['Barrel of Fun Punch'], 'hurricane.jpg': ['Hurricane'],
-    'watermelon.jpeg': ['Watermelon Margarita', 'Watermelon Lemonade'], 'churros.jpg': ['Churros with Chocolate Sauce'],
-    'rice.jpg': ['Rice Pudding'], 'lemon.jpg': ['Lemon Bars'], 'burger.jpg': ['Black Bean Burgers'],
-    'ae4bb2718fcea2bb1c931a4fc2f83486.jpg': ['Cinnamon Apple Fries'], 'fruit.jpg': ['Fruit Sorbet'],
-    'bfa0bc32637b5dea361aa4eaf2172d23.jpg': ['Chocolate Lava Cake'], 'crab.jpg': ['Crab Cakes'], 'sardine.jpg': ['Grilled Sardines'],
-    '46c66dc55a3c184ed9245e37ae272b91.jpg': ['Miso Glazed Cod'], '4b6805279d8b7e08f20a4c987c9b1b85.jpg': ['Sesame Crusted Tuna'],
-    '6171cfe1dcd65e6abb1e90b2690ef832.jpg': ['Grilled Octopus'], '9ead18734429512091d2542a521bed7e.jpg': ['Garlic Prawn Skewers'],
-    '9ee3940cb7651e0e85a76c706e61c353.jpg': ['Spicy Tuna Poke Bowl'], 'periperi.jpg': ['Peri-Peri Chicken'], 'pap.jpg': ['Mielie Pap'],
-    '3068c9c72677d3aac47033d7e802b0e8.jpg': ['Traditional Boerewors'], '806ca3ed15a477b86e8f159ff5a281d5.jpg': ['Braai Steak'],
-    'd2f18f2a5ae93f99a7ab41f3255110e5.jpg': ['Chakalaka Relish'], '3b88c759e51c3ef80406e9a97e3cfb87.jpg': ['Spatchcock Chicken'],
-    '356237c80eb4e7c7239dd5713f1fc504.jpg': ['Lamb Sosatie'], 'grilled.jpg': ['Grilled Pork Ribs'], 'broodjie.jpg': ['Braai Broodjie'],
-    'snoek.jpg': ['Snoek Braai'], 'garlic.jpeg': ['Garlic Butter Shrimp Pasta'], 'avocado.jpeg': ['Chicken Avocado Wrap'],
-    'bowl.jpeg': ['Mediterranean Bowl'], 'toast.jpeg': ['Caprese Avocado Toast'], 'risoni.jpg': ['Creamy One-Pan Salmon and Risoni'],
-    'meat.jpg': ['15-Minute Sausage Meatballs'], 'thai.jpg': ['Thai Basil Chicken'], 'honey.jpg': ['Honey Garlic Chicken Thighs'],
-    'cauliflower.jpg': ['Cauliflower Buffalo Wings'], '8998318912bd297b081d117512c5f135.jpg': ['Veggie Stir-fry Tofu']
+    // Drink images
+    'blue.jpg': ['Blue Lagoon'],
+    'pina.jpg': ['Pinina Colada Sangria', 'Piña Colada Sangria'],
+    'mojito.jpg': ['Mojito Pitcher'],
+    'coconut.jpg': ['Tropical Coconut Rum Punch'],
+    'punch.jpg': ['Barrel of Fun Punch'],
+    'hurricane.jpg': ['Hurricane'],
+    'watermelon.jpeg': ['Watermelon Margarita', 'Watermelon Lemonade'],
+    
+    // Dessert images
+    'churros.jpg': ['Churros with Chocolate Sauce'],
+    'rice.jpg': ['Rice Pudding'],
+    'lemon.jpg': ['Lemon Bars'],
+    'burger.jpg': ['Black Bean Burgers'],
+    'ae4bb2718fcea2bb1c931a4fc2f83486.jpg': ['Cinnamon Apple Fries'],
+    'fruit.jpg': ['Fruit Sorbet'],
+    'bfa0bc32637b5dea361aa4eaf2172d23.jpg': ['Chocolate Lava Cake'],
+    
+    // Pescetarian images
+    'crab.jpg': ['Crab Cakes'],
+    'sardine.jpg': ['Grilled Sardines'],
+    '46c66dc55a3c184ed9245e37ae272b91.jpg': ['Miso Glazed Cod'],
+    '4b6805279d8b7e08f20a4c987c9b1b85.jpg': ['Sesame Crusted Tuna'],
+    '6171cfe1dcd65e6abb1e90b2690ef832.jpg': ['Grilled Octopus'],
+    '9ead18734429512091d2542a521bed7e.jpg': ['Garlic Prawn Skewers'],
+    '9ee3940cb7651e0e85a76c706e61c353.jpg': ['Spicy Tuna Poke Bowl'],
+    'bang bang.jpg': ['Air-Fried Bang Bang Salmon', 'Air Fried Bang Bang Salmon'],
+    
+    // Braii images
+    'periperi.jpg': ['Peri-Peri Chicken'],
+    'pap.jpg': ['Mielie Pap'],
+    '3068c9c72677d3aac47033d7e802b0e8.jpg': ['Traditional Boerewors'],
+    '806ca3ed15a477b86e8f159ff5a281d5.jpg': ['Braai Steak'],
+    'd2f18f2a5ae93f99a7ab41f3255110e5.jpg': ['Chakalaka Relish'],
+    '3b88c759e51c3ef80406e9a97e3cfb87.jpg': ['Spatchcock Chicken'],
+    '356237c80eb4e7c7239dd5713f1fc504.jpg': ['Lamb Sosatie'],
+    'grilled.jpg': ['Grilled Pork Ribs'],
+    'broodjie.jpg': ['Braai Broodjie'],
+    'snoek.jpg': ['Snoek Braai'],
+    
+    // Quick meal images
+    'garlic.jpeg': ['Garlic Butter Shrimp Pasta'],
+    'avocado.jpeg': ['Chicken Avocado Wrap'],
+    'bowl.jpeg': ['Mediterranean Bowl'],
+    'toast.jpeg': ['Caprese Avocado Toast'],
+    '8998318912bd297b081d117512c5f135.jpg': ['Veggie Stir-fry Tofu'],
+    'risoni.jpg': ['Creamy One-Pan Salmon and Risoni', 'Creamy One Pan Salmon and Risoni'],
+    'meat.jpg': ['15-Minute Sausage Meatballs', '15 Minute Sausage Meatballs'],
+    'thai.jpg': ['Thai Basil Chicken'],
+    'honey.jpg': ['Honey Garlic Chicken Thighs'],
+    'cauliflower.jpg': ['Cauliflower Buffalo Wings']
   };
 
   function getImageForRecipe(recipeName) {
@@ -455,7 +489,7 @@
     return `https://source.unsplash.com/featured/400x300/?${encodeURIComponent(recipeName.split(' ').slice(0,2).join('+'))},food`;
   }
 
-  // RECIPE LISTS FOR EACH CATEGORY
+  // RECIPE LISTS FOR EACH CATEGORY (only 3 shown on main page, all shown in modal)
   const categoryRecipes = {
     quick: [
       { name: "5-Minute Pork/Chicken Stir-Fry", desc: "Thinly sliced meat, mixed vegetables, and a savory soy-based sauce.", time: "5min", icon: "fa-utensils" },
@@ -578,7 +612,11 @@
   function openRecipeDetailModal(recipeName) {
     const details = getRecipeDetails(recipeName);
     const imageUrl = getImageForRecipe(recipeName);
-    const recipeData = [...categoryRecipes.quick, ...categoryRecipes.drinks, ...categoryRecipes.desserts, ...categoryRecipes.pescetarian, ...categoryRecipes.vegetarian, ...categoryRecipes.braii].find(r => r.name === recipeName);
+    let recipeData = null;
+    for (const cat of Object.values(categoryRecipes)) {
+      recipeData = cat.find(r => r.name === recipeName);
+      if (recipeData) break;
+    }
     const time = recipeData?.time || '15min';
     
     detailModalTitle.textContent = recipeName;
