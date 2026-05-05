@@ -204,7 +204,7 @@
     }
     .modal-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 1.5rem;
       margin-top: 1rem;
     }
@@ -214,7 +214,6 @@
       overflow: hidden;
       border: 1px solid #333;
       transition: all 0.2s;
-      cursor: pointer;
     }
     .modal-recipe-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(228,92,44,0.2); border-color: #e45c2c; }
     .modal-recipe-img {
@@ -236,72 +235,6 @@
     .modal-recipe-info h4 { font-size: 1rem; font-weight: 700; color: #f0f0f0; margin-bottom: 0.3rem; }
     .modal-recipe-info p { font-size: 0.75rem; color: #a0a0a0; }
     .modal-recipe-info .recipe-meta { font-size: 0.7rem; color: #e45c2c; }
-    
-    /* Recipe Detail Modal */
-    .recipe-detail-modal {
-      max-width: 800px;
-      width: 90%;
-    }
-    .recipe-detail {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-    .recipe-detail-header {
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .recipe-detail-img {
-      flex: 1;
-      min-width: 200px;
-      height: 250px;
-      background-size: cover;
-      background-position: center;
-      border-radius: 1rem;
-      position: relative;
-    }
-    .recipe-detail-img::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
-      border-radius: 1rem;
-    }
-    .recipe-detail-info {
-      flex: 2;
-    }
-    .recipe-detail-info h3 {
-      font-size: 1.8rem;
-      color: #e45c2c;
-      margin-bottom: 0.5rem;
-    }
-    .recipe-detail-meta {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1rem;
-      color: #e45c2c;
-    }
-    .recipe-section {
-      margin-top: 1rem;
-    }
-    .recipe-section h4 {
-      color: #e45c2c;
-      margin-bottom: 0.8rem;
-      font-size: 1.2rem;
-    }
-    .recipe-section ul, .recipe-section ol {
-      padding-left: 1.5rem;
-      line-height: 1.6;
-      color: #a0a0a0;
-    }
-    .recipe-section li {
-      margin-bottom: 0.5rem;
-    }
-    
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: translateY(0);} }
     .modal-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 2px solid #333; margin-bottom: 1rem; }
     .modal-header h2 { font-size: 1.8rem; color: #e45c2c; }
@@ -314,7 +247,6 @@
       .cat-card { min-width: 110px; padding: 0.8rem 1rem; }
       .modal-content { padding: 1rem; }
       .modal-header h2 { font-size: 1.3rem; }
-      .recipe-detail-header { flex-direction: column; }
     }
   </style>
 </head>
@@ -354,78 +286,12 @@
     <div class="braii-highlight" id="braii-section"><i class="fas fa-drumstick-bite" style="font-size: 2.5rem; color:#e45c2c;"></i><h3>🔥 Braii — South African Soul Fire 🔥</h3><p>Traditional flame-grilled goodness, smoky chakalaka, boerewors, and sosaties. Gather around the fire!</p></div>
   </div>
 
-  <!-- Modal for category recipes -->
-  <div id="categoryModal" class="modal"><div class="modal-content"><div class="modal-header"><h2 id="categoryModalTitle">Recipes</h2><button class="close-modal category-close">&times;</button></div><div id="categoryModalGrid" class="modal-grid"></div></div></div>
-  
-  <!-- Modal for recipe details -->
-  <div id="recipeDetailModal" class="modal"><div class="modal-content recipe-detail-modal"><div class="modal-header"><h2 id="detailModalTitle">Recipe Details</h2><button class="close-modal detail-close">&times;</button></div><div id="detailModalBody" class="recipe-detail"></div></div></div>
-  
+  <div id="videoModal" class="modal"><div class="modal-content"><div class="modal-header"><h2 id="modalTitle">Recipes</h2><button class="close-modal">&times;</button></div><div id="modalGrid" class="modal-grid"></div></div></div>
   <footer><i class="fas fa-heart" style="color:#e45c2c;"></i> TASTYLOVE — click any category to explore all recipes! <i class="fas fa-utensils"></i></footer>
 </div>
 
 <script>
-  // COMPLETE RECIPE DATABASE with ingredients and instructions for ALL recipes
-  const fullRecipesDB = {
-    // EASY QUICK MEALS (11 recipes)
-    '5-Minute Pork/Chicken Stir-Fry': {
-      ingredients: ["1 lb pork or chicken breast, thinly sliced", "2 cups mixed vegetables (bell peppers, broccoli, carrots)", "3 tbsp soy sauce", "2 tbsp oyster sauce", "1 tsp sesame oil", "2 cloves garlic, minced", "1 tsp ginger, grated", "2 tbsp vegetable oil"],
-      instructions: ["Heat vegetable oil in a wok or large skillet over high heat.", "Add sliced meat and stir-fry for 2-3 minutes until browned.", "Add garlic and ginger, cook for 30 seconds until fragrant.", "Add mixed vegetables and stir-fry for 2-3 minutes.", "In a small bowl, mix soy sauce, oyster sauce, and sesame oil.", "Pour sauce over the stir-fry and toss to coat evenly.", "Cook for another 1-2 minutes until sauce thickens slightly.", "Serve hot over rice or noodles."]
-    },
-    'Thai Basil Chicken': {
-      ingredients: ["1 lb ground chicken", "3 cups fresh Thai basil leaves", "4 cloves garlic, minced", "3-4 Thai chiles, chopped", "2 tbsp fish sauce", "1 tbsp oyster sauce", "1 tsp sugar", "2 tbsp vegetable oil", "1/4 cup chicken broth"],
-      instructions: ["Heat oil in a wok over high heat.", "Add garlic and chiles, stir-fry for 30 seconds.", "Add ground chicken and cook until no longer pink, breaking it up.", "Add fish sauce, oyster sauce, and sugar. Stir well.", "Add chicken broth and cook for 1-2 minutes.", "Turn off heat and add Thai basil leaves.", "Stir until basil wilts from residual heat.", "Serve immediately over jasmine rice."]
-    },
-    '12-Minute Peanut Noodles': {
-      ingredients: ["8 oz noodles (rice or wheat)", "1/2 lb ground chicken or turkey", "1/4 cup peanut butter", "3 tbsp soy sauce", "1 tbsp sesame oil", "1 tbsp rice vinegar", "1 tsp sriracha (optional)", "2 green onions, sliced", "2 tbsp crushed peanuts"],
-      instructions: ["Cook noodles according to package directions. Drain and set aside.", "In a small bowl, whisk together peanut butter, soy sauce, sesame oil, rice vinegar, and sriracha.", "In a skillet, cook ground meat over medium heat until browned.", "Add the peanut sauce to the skillet and stir to combine.", "Add cooked noodles and toss to coat evenly.", "Cook for 1-2 minutes until heated through.", "Garnish with green onions and crushed peanuts.", "Serve warm or at room temperature."]
-    },
-    'Air-Fried Bang Bang Salmon': {
-      ingredients: ["2 salmon fillets (6 oz each)", "1/4 cup mayonnaise", "2 tbsp sweet chili sauce", "1 tbsp sriracha", "1 tsp honey", "1 cup cooked rice", "1 cup steamed green beans", "Salt and pepper to taste"],
-      instructions: ["Pat salmon dry and season with salt and pepper.", "In a small bowl, mix mayonnaise, sweet chili sauce, sriracha, and honey.", "Brush half the sauce over the salmon fillets.", "Preheat air fryer to 400°F (200°C).", "Place salmon in air fryer basket and cook for 8-10 minutes.", "While salmon cooks, prepare rice and steam green beans.", "Drizzle remaining sauce over cooked salmon.", "Serve with rice and green beans."]
-    },
-    '15-Minute Sausage Meatballs': {
-      ingredients: ["1 lb Italian sausage, casings removed", "1/2 cup breadcrumbs", "1/4 cup grated Parmesan cheese", "1 egg", "2 tbsp fresh parsley, chopped", "2 cloves garlic, minced", "2 cups marinara sauce", "8 oz pasta of choice"],
-      instructions: ["In a bowl, combine sausage, breadcrumbs, Parmesan, egg, parsley, and garlic.", "Roll mixture into 1-inch meatballs (about 16-20).", "Heat a large skillet over medium-high heat.", "Add meatballs and cook until browned on all sides (about 5-7 minutes).", "Add marinara sauce to the skillet and bring to a simmer.", "Reduce heat to low, cover, and cook for 5-8 minutes.", "Meanwhile, cook pasta according to package directions.", "Serve meatballs and sauce over pasta."]
-    },
-    'Honey Garlic Chicken Thighs': {
-      ingredients: ["4 boneless, skinless chicken thighs", "1/4 cup honey", "1/4 cup soy sauce", "4 cloves garlic, minced", "1 tbsp rice vinegar", "1 tsp ginger, grated", "1 tbsp vegetable oil", "2 green onions, sliced", "Sesame seeds for garnish"],
-      instructions: ["In a bowl, whisk honey, soy sauce, garlic, rice vinegar, and ginger.", "Heat oil in a large skillet over medium-high heat.", "Add chicken thighs and cook 4-5 minutes per side until golden.", "Pour honey garlic sauce over the chicken.", "Reduce heat to medium-low and simmer for 5-7 minutes until sauce thickens.", "Flip chicken to coat both sides in the glaze.", "Garnish with green onions and sesame seeds.", "Serve with rice and vegetables."]
-    },
-    'Chicken Quesadillas': {
-      ingredients: ["2 cups shredded cooked chicken", "4 large flour tortillas", "2 cups shredded Mexican cheese blend", "1/2 cup diced bell peppers", "1/4 cup diced onions", "2 tbsp butter", "Salsa and sour cream for serving"],
-      instructions: ["Heat a large skillet over medium heat.", "Place one tortilla in the skillet.", "Sprinkle with cheese, chicken, peppers, and onions.", "Top with another tortilla.", "Cook for 2-3 minutes until golden brown and cheese starts melting.", "Flip carefully and cook the other side for 2-3 minutes.", "Remove from skillet and cut into wedges.", "Serve with salsa and sour cream."]
-    },
-    'Rotisserie Chicken Pitas': {
-      ingredients: ["2 cups shredded rotisserie chicken", "4 pita breads", "1 cup salad greens", "1/2 cup tzatziki sauce", "1/4 cup diced cucumber", "1/4 cup diced tomatoes", "1/4 cup crumbled feta cheese"],
-      instructions: ["Warm pita breads in a dry skillet or microwave.", "Spread tzatziki sauce inside each pita.", "Fill with shredded chicken, salad greens, cucumber, tomatoes.", "Sprinkle with feta cheese.", "Serve immediately or wrap for later."]
-    },
-    'White Bean-and-Spinach Caprese Salad': {
-      ingredients: ["1 can white beans, drained and rinsed", "2 cups fresh spinach", "1 cup cherry tomatoes, halved", "8 oz fresh mozzarella pearls", "1/4 cup fresh basil, chopped", "2 tbsp balsamic glaze", "2 tbsp olive oil", "Salt and pepper to taste"],
-      instructions: ["In a large bowl, combine white beans, spinach, cherry tomatoes, and mozzarella pearls.", "Add fresh basil.", "Drizzle with olive oil and balsamic glaze.", "Season with salt and pepper.", "Toss gently to combine.", "Serve immediately or chill for later."]
-    },
-    'Creamy One-Pan Salmon and Risoni': {
-      ingredients: ["2 salmon fillets", "1 cup risoni (orzo pasta)", "2 cups chicken broth", "1/2 cup heavy cream", "1/4 cup grated Parmesan", "2 cloves garlic, minced", "1 tbsp olive oil", "Fresh parsley for garnish"],
-      instructions: ["Heat olive oil in a large skillet over medium heat.", "Season salmon with salt and pepper, sear skin-side down for 3-4 minutes.", "Flip and cook for 2 more minutes. Remove and set aside.", "In the same skillet, add garlic and risoni, toast for 1 minute.", "Add chicken broth and bring to a simmer.", "Cook until risoni is tender and liquid is absorbed (about 10 minutes).", "Stir in heavy cream and Parmesan.", "Return salmon to the skillet to warm through.", "Garnish with parsley and serve."]
-    },
-    'Beef Stroganoff': {
-      ingredients: ["1 lb ground beef", "8 oz mushrooms, sliced", "1 onion, diced", "2 cloves garlic, minced", "2 tbsp flour", "2 cups beef broth", "1 cup sour cream", "8 oz egg noodles", "Salt and pepper to taste", "Fresh parsley for garnish"],
-      instructions: ["Cook egg noodles according to package directions. Drain and set aside.", "In a large skillet, brown ground beef over medium heat. Drain excess fat.", "Add mushrooms, onion, and garlic. Cook until softened.", "Sprinkle flour over the meat and stir to coat.", "Gradually add beef broth, stirring constantly until thickened.", "Reduce heat to low and stir in sour cream.", "Season with salt and pepper.", "Serve over egg noodles, garnished with parsley."]
-    }
-  };
-
-  // Function to get recipe details with fallback
-  function getRecipeDetails(recipeName) {
-    if (fullRecipesDB[recipeName]) {
-      return fullRecipesDB[recipeName];
-    }
-    // Default recipe structure for any missing recipes
-    return {
-      ingredients: ["Ingredients for " + recipeName, "2 tbsp olive oil", "Salt and pepper to taste", "Fresh herbs for garnish"],
-      instructions: ["Prepare all ingredients as needed.", "Follow standard cooking method for this dish.", "Cook until properly done and season to taste.", "Serve hot and enjoy!"]
-    };
-  }
-
-  // COMPLETE IMAGE MAPPING - All your existing pictures preserved
+  // IMAGE MAPPING SYSTEM - Maps uploaded images to their specific recipes
   const imageMapping = {
     // Drink images
     'blue.jpg': ['Blue Lagoon'],
@@ -479,224 +345,206 @@
     'honey.jpg': ['Honey Garlic Chicken Thighs'],
     'cauliflower.jpg': ['Cauliflower Buffalo Wings']
   };
-
+  
+  // Fallback images for recipes without custom uploads
+  const fallbackImages = {
+    '5-Minute Pork/Chicken Stir-Fry': 'https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&h=200&fit=crop',
+    '12-Minute Peanut Noodles': 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=200&fit=crop',
+    'Chicken Quesadillas': 'https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?w=400&h=200&fit=crop',
+    'Rotisserie Chicken Pitas': 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400&h=200&fit=crop',
+    'White Bean-and-Spinach Caprese Salad': 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=200&fit=crop',
+    'Beef Stroganoff': 'https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400&h=200&fit=crop',
+    'Piña Colada': 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=200&fit=crop',
+    'Aviation Cocktail': 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=200&fit=crop',
+    'Pineapple & Lime Mocktail': 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=200&fit=crop',
+    '3-Min Mug Brownie': 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=200&fit=crop',
+    'No-Bake Cheesecake Jars': 'https://images.unsplash.com/photo-1542826438-bd32f43d626f?w=400&h=200&fit=crop',
+    'Strawberry Shortcake': 'https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?w=400&h=200&fit=crop',
+    'Tiramisu Cups': 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400&h=200&fit=crop',
+    'Lemon Dill Salmon': 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=200&fit=crop',
+    'Seafood Paella': 'https://images.unsplash.com/photo-1534080564583-6be75777b70a?w=400&h=200&fit=crop',
+    'Coconut Shrimp Curry': 'https://images.unsplash.com/photo-1559847844-5315695dadae?w=400&h=200&fit=crop',
+    'Sweet Potato & Chickpea Curry': 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&h=200&fit=crop',
+    'Mushroom Risotto': 'https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=400&h=200&fit=crop',
+    'Eggplant Parmesan': 'https://images.unsplash.com/photo-1598866594230-a7c12756260f?w=400&h=200&fit=crop',
+    'Zucchini Noodles Pesto': 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=400&h=200&fit=crop',
+    'Spinach & Feta Pie': 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400&h=200&fit=crop',
+    'Lentil Soup': 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&h=200&fit=crop'
+  };
+  
+  // Function to get image for a recipe
   function getImageForRecipe(recipeName) {
+    // First, check if any uploaded image matches this recipe
     for (const [imageFile, recipeNames] of Object.entries(imageMapping)) {
-      if (recipeNames.some(name => recipeName.toLowerCase().includes(name.toLowerCase()) || name.toLowerCase().includes(recipeName.toLowerCase()))) {
+      if (recipeNames.some(name => recipeName.toLowerCase().includes(name.toLowerCase()) || 
+          name.toLowerCase().includes(recipeName.toLowerCase()))) {
         return imageFile;
       }
     }
+    // Then check fallback images
+    if (fallbackImages[recipeName]) {
+      return fallbackImages[recipeName];
+    }
+    // Default fallback
     return `https://source.unsplash.com/featured/400x300/?${encodeURIComponent(recipeName.split(' ').slice(0,2).join('+'))},food`;
   }
 
-  // RECIPE LISTS FOR EACH CATEGORY (only 3 shown on main page, all shown in modal)
-  const categoryRecipes = {
-    quick: [
-      { name: "5-Minute Pork/Chicken Stir-Fry", desc: "Thinly sliced meat, mixed vegetables, and a savory soy-based sauce.", time: "5min", icon: "fa-utensils" },
-      { name: "Thai Basil Chicken", desc: "Ground chicken cooked with fresh basil, chiles, and aromatic garlic.", time: "12min", icon: "fa-utensils" },
-      { name: "12-Minute Peanut Noodles", desc: "Ground chicken or turkey cooked with creamy peanut butter.", time: "12min", icon: "fa-utensils" },
-      { name: "Air-Fried Bang Bang Salmon", desc: "Salmon cooked in 8-10 minutes served with rice and beans.", time: "10min", icon: "fa-fish" },
-      { name: "15-Minute Sausage Meatballs", desc: "Quick sausage pan-fry served with pasta or vegetables.", time: "15min", icon: "fa-utensils" },
-      { name: "Honey Garlic Chicken Thighs", desc: "Sticky, savory chicken cooked in a pan in 20 minutes.", time: "20min", icon: "fa-utensils" },
-      { name: "Chicken Quesadillas", desc: "Shredded chicken, melted cheese, and peppers in crispy tortilla.", time: "15min", icon: "fa-utensils" },
-      { name: "Rotisserie Chicken Pitas", desc: "Salad kit, rotisserie chicken, and pitas for zero-cook dinner.", time: "10min", icon: "fa-utensils" },
-      { name: "White Bean-and-Spinach Caprese Salad", desc: "White beans, mozzarella, tomatoes, and fresh spinach.", time: "10min", icon: "fa-leaf" },
-      { name: "Creamy One-Pan Salmon and Risoni", desc: "Orzo and salmon cooked together for minimal cleanup.", time: "15min", icon: "fa-fish" },
-      { name: "Beef Stroganoff", desc: "Quick, one-pot ground beef meal with creamy mushroom sauce.", time: "20min", icon: "fa-utensils" }
-    ],
-    drinks: [
-      { name: "Blue Lagoon", desc: "Bright blue cocktail with blue curaçao, vodka, and lemonade.", time: "5min", icon: "fa-cocktail" },
-      { name: "Piña Colada", desc: "Creamy blend of pineapple juice, coconut rum, and cream of coconut.", time: "7min", icon: "fa-cocktail" },
-      { name: "Watermelon Margarita", desc: "Frosty mix of watermelon puree, tequila, and lime.", time: "6min", icon: "fa-cocktail" },
-      { name: "Hurricane", desc: "Sweet, bright red rum cocktail popular in New Orleans.", time: "8min", icon: "fa-cocktail" },
-      { name: "Aviation Cocktail", desc: "Light purple gin sour featuring crème de violette.", time: "6min", icon: "fa-cocktail" },
-      { name: "Barrel of Fun Punch", desc: "Mix of vodka, rum, coconut rum, peach schnapps, and juices.", time: "10min", icon: "fa-cocktail" },
-      { name: "Pinina Colada Sangria", desc: "White wine and coconut rum with pineapple juice.", time: "10min", icon: "fa-wine-glass" },
-      { name: "Mojito Pitcher", desc: "Refreshing mix of rum, lime, mint, and soda water.", time: "8min", icon: "fa-cocktail" },
-      { name: "Watermelon Lemonade", desc: "Freshly blended watermelon and lemonade.", time: "5min", icon: "fa-wine-glass" },
-      { name: "Pineapple & Lime Mocktail", desc: "Bright tropical mix of pineapple juice and lime.", time: "5min", icon: "fa-wine-glass" },
-      { name: "Tropical Coconut Rum Punch", desc: "Blend of fruit juices and coconut water.", time: "6min", icon: "fa-cocktail" }
-    ],
-    desserts: [
-      { name: "3-Min Mug Brownie", desc: "Gooey chocolate, microwave magic, top with berries.", time: "3min", icon: "fa-cake-candles" },
-      { name: "No-Bake Cheesecake Jars", desc: "Creamy layers, graham crust, fruit topping.", time: "15min", icon: "fa-jar" },
-      { name: "Cinnamon Apple Fries", desc: "Baked apple slices, cinnamon sugar, yogurt dip.", time: "12min", icon: "fa-apple-alt" },
-      { name: "Chocolate Lava Cake", desc: "Warm molten chocolate center with powdered sugar.", time: "15min", icon: "fa-cake-candles" },
-      { name: "Strawberry Shortcake", desc: "Fresh strawberries, whipped cream, buttery biscuits.", time: "12min", icon: "fa-cake-candles" },
-      { name: "Churros with Chocolate Sauce", desc: "Crispy cinnamon sugar churros, warm chocolate dip.", time: "15min", icon: "fa-utensils" },
-      { name: "Fruit Sorbet", desc: "Mixed berries, mango, coconut water, refreshing treat.", time: "10min", icon: "fa-ice-cream" },
-      { name: "Tiramisu Cups", desc: "Coffee-soaked ladyfingers, mascarpone cream, cocoa.", time: "15min", icon: "fa-cake-candles" },
-      { name: "Lemon Bars", desc: "Tangy lemon filling, buttery shortbread crust.", time: "18min", icon: "fa-cake-candles" },
-      { name: "Rice Pudding", desc: "Creamy arborio rice, cinnamon, vanilla.", time: "20min", icon: "fa-utensils" }
-    ],
-    pescetarian: [
-      { name: "Lemon Dill Salmon", desc: "Pan-seared salmon, lemon butter sauce, asparagus.", time: "20min", icon: "fa-fish" },
-      { name: "Spicy Tuna Poke Bowl", desc: "Fresh tuna, avocado, edamame, sesame.", time: "15min", icon: "fa-bowl-food" },
-      { name: "Garlic Prawn Skewers", desc: "Grilled prawns, herb marinade, zesty dip.", time: "18min", icon: "fa-utensils" },
-      { name: "Grilled Sardines", desc: "Fresh sardines, lemon, olive oil, parsley.", time: "15min", icon: "fa-fish" },
-      { name: "Crab Cakes", desc: "Lump crab meat, breadcrumbs, remoulade sauce.", time: "20min", icon: "fa-utensils" },
-      { name: "Seafood Paella", desc: "Shrimp, mussels, clams, saffron rice, peas.", time: "20min", icon: "fa-bowl-food" },
-      { name: "Grilled Octopus", desc: "Tender octopus, olive oil, paprika, lemon.", time: "20min", icon: "fa-fish" },
-      { name: "Miso Glazed Cod", desc: "Buttery cod, sweet miso glaze, bok choy.", time: "18min", icon: "fa-fish" },
-      { name: "Coconut Shrimp Curry", desc: "Shrimp, coconut milk, red curry, bell peppers.", time: "20min", icon: "fa-utensils" },
-      { name: "Sesame Crusted Tuna", desc: "Seared tuna, sesame seeds, wasabi, soy dip.", time: "12min", icon: "fa-fish" }
-    ],
-    vegetarian: [
-      { name: "Veggie Stir-fry Tofu", desc: "Colorful peppers, broccoli, tofu, ginger soy.", time: "17min", icon: "fa-seedling" },
-      { name: "Sweet Potato & Chickpea Curry", desc: "Coconut curry, spinach, quick rice.", time: "20min", icon: "fa-leaf" },
-      { name: "Caprese Avocado Toast", desc: "Fresh mozzarella, tomato, basil, balsamic.", time: "8min", icon: "fa-bread-slice" },
-      { name: "Mushroom Risotto", desc: "Creamy arborio rice, wild mushrooms, parmesan.", time: "20min", icon: "fa-utensils" },
-      { name: "Eggplant Parmesan", desc: "Breaded eggplant, marinara, mozzarella, basil.", time: "20min", icon: "fa-leaf" },
-      { name: "Zucchini Noodles Pesto", desc: "Spiralized zucchini, fresh basil pesto.", time: "10min", icon: "fa-leaf" },
-      { name: "Black Bean Burgers", desc: "Homemade black bean patty, avocado, lettuce.", time: "15min", icon: "fa-leaf" },
-      { name: "Cauliflower Buffalo Wings", desc: "Crispy cauliflower, spicy buffalo sauce.", time: "18min", icon: "fa-leaf" },
-      { name: "Spinach & Feta Pie", desc: "Flaky phyllo dough, spinach, feta cheese.", time: "20min", icon: "fa-utensils" },
-      { name: "Lentil Soup", desc: "Hearty lentils, vegetables, cumin, lemon.", time: "20min", icon: "fa-leaf" }
-    ],
-    braii: [
-      { name: "Traditional Boerewors", desc: "South African beef sausage, flame-grilled.", time: "15min", icon: "fa-fire" },
-      { name: "Peri-Peri Chicken", desc: "Spicy Portuguese-style chicken, grilled.", time: "20min", icon: "fa-fire" },
-      { name: "Lamb Sosatie", desc: "Marinated lamb skewers, apricots, onions.", time: "18min", icon: "fa-fire" },
-      { name: "Braai Steak", desc: "Thick-cut beef steak, seasoned simply.", time: "15min", icon: "fa-fire" },
-      { name: "Grilled Pork Ribs", desc: "Sticky BBQ pork ribs, slow-grilled.", time: "20min", icon: "fa-fire" },
-      { name: "Spatchcock Chicken", desc: "Butterflied chicken, herb marinade.", time: "20min", icon: "fa-fire" },
-      { name: "Braai Broodjie", desc: "Grilled cheese sandwich, tomato, onion.", time: "10min", icon: "fa-fire" },
-      { name: "Mielie Pap", desc: "Traditional maize porridge, grilled corn.", time: "15min", icon: "fa-fire" },
-      { name: "Snoek Braai", desc: "Whole grilled snoek fish, apricot jam.", time: "18min", icon: "fa-fire" },
-      { name: "Chakalaka Relish", desc: "Spicy vegetable relish, beans, peppers.", time: "15min", icon: "fa-fire" }
-    ]
-  };
+  // EASY QUICK MEALS - 11 recipes
+  const quickMeals = [
+    { name: "5-Minute Pork/Chicken Stir-Fry", desc: "Thinly sliced meat, mixed vegetables, and a savory soy-based sauce.", time: "5min", icon: "fa-utensils" },
+    { name: "Thai Basil Chicken", desc: "Ground chicken cooked with fresh basil, chiles, and aromatic garlic.", time: "12min", icon: "fa-utensils" },
+    { name: "12-Minute Peanut Noodles", desc: "Ground chicken or turkey cooked with creamy peanut butter, soy sauce, and noodles.", time: "12min", icon: "fa-utensils" },
+    { name: "Air-Fried Bang Bang Salmon", desc: "Salmon cooked in 8-10 minutes served with rice and steamed beans.", time: "10min", icon: "fa-fish" },
+    { name: "15-Minute Sausage Meatballs", desc: "Quick sausage pan-fry served with pasta or fresh vegetables.", time: "15min", icon: "fa-utensils" },
+    { name: "Honey Garlic Chicken Thighs", desc: "Sticky, savory chicken cooked in a pan in roughly 20 minutes.", time: "20min", icon: "fa-utensils" },
+    { name: "Chicken Quesadillas", desc: "Use shredded rotisserie chicken for a quick 15-minute meal.", time: "15min", icon: "fa-utensils" },
+    { name: "Rotisserie Chicken Pitas", desc: "Salad kit, rotisserie chicken, and pitas for a zero-cook dinner.", time: "10min", icon: "fa-utensils" },
+    { name: "White Bean-and-Spinach Caprese Salad", desc: "White beans, mozzarella pearls, tomatoes, and fresh spinach.", time: "10min", icon: "fa-leaf" },
+    { name: "Creamy One-Pan Salmon and Risoni", desc: "Orzo and salmon cooked together for minimal cleanup.", time: "15min", icon: "fa-fish" },
+    { name: "Beef Stroganoff", desc: "A quick, one-pot ground beef meal with creamy mushroom sauce.", time: "20min", icon: "fa-utensils" }
+  ];
 
-  function createRecipeCard(recipe) {
-    return `<div class="recipe-card" data-recipe-name="${recipe.name}"><div class="recipe-img" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1)), url('${getImageForRecipe(recipe.name)}'); background-size: cover; background-position: center;"><span class="recipe-badge"><i class="fas ${recipe.icon}"></i> ${recipe.time}</span></div><div class="recipe-info"><h4>${recipe.name}</h4><div class="recipe-desc">${recipe.desc}</div><div class="recipe-meta"><i class="far fa-clock"></i> ${recipe.time}  <i class="fas fa-fire"></i> easy</div></div></div>`;
+  // FUN DRINKS - 11 recipes
+  const funDrinks = [
+    { name: "Blue Lagoon", desc: "A bright blue cocktail made with blue curaçao, vodka, and lemonade.", time: "5min", icon: "fa-cocktail" },
+    { name: "Piña Colada", desc: "Creamy blend of pineapple juice, coconut rum, and cream of coconut.", time: "7min", icon: "fa-cocktail" },
+    { name: "Watermelon Margarita", desc: "A frosty mix of watermelon puree, tequila, and lime.", time: "6min", icon: "fa-cocktail" },
+    { name: "Hurricane", desc: "A sweet, bright red rum cocktail popular in New Orleans.", time: "8min", icon: "fa-cocktail" },
+    { name: "Aviation Cocktail", desc: "A light purple gin sour featuring crème de violette.", time: "6min", icon: "fa-cocktail" },
+    { name: "Barrel of Fun Punch", desc: "A mix of vodka, rum, coconut rum, peach schnapps, and pineapple/orange juice.", time: "10min", icon: "fa-cocktail" },
+    { name: "Pinina Colada Sangria", desc: "White wine and coconut rum combined with pineapple juice and frozen pineapple.", time: "10min", icon: "fa-wine-glass" },
+    { name: "Mojito Pitcher", desc: "A refreshing mix of rum, lime, mint, and soda water, easy to make for a crowd.", time: "8min", icon: "fa-cocktail" },
+    { name: "Watermelon Lemonade", desc: "Freshly blended watermelon and lemonade.", time: "5min", icon: "fa-wine-glass" },
+    { name: "Pineapple & Lime Mocktail", desc: "A bright tropical mix of pineapple juice and lime.", time: "5min", icon: "fa-wine-glass" },
+    { name: "Tropical Coconut Rum Punch", desc: "A blend of fruit juices and coconut water.", time: "6min", icon: "fa-cocktail" }
+  ];
+
+  // QUICK DESSERTS - 10 recipes
+  const desserts = [
+    { name: "3-Min Mug Brownie", desc: "Gooey chocolate, microwave magic, top with berries.", time: "3min", icon: "fa-cake-candles" },
+    { name: "No-Bake Cheesecake Jars", desc: "Creamy layers, graham crust, fruit topping.", time: "15min", icon: "fa-jar" },
+    { name: "Cinnamon Apple Fries", desc: "Baked apple slices, cinnamon sugar, yogurt dip.", time: "12min", icon: "fa-apple-alt" },
+    { name: "Chocolate Lava Cake", desc: "Warm molten chocolate center with powdered sugar.", time: "15min", icon: "fa-cake-candles" },
+    { name: "Strawberry Shortcake", desc: "Fresh strawberries, whipped cream, buttery biscuits.", time: "12min", icon: "fa-cake-candles" },
+    { name: "Churros with Chocolate Sauce", desc: "Crispy cinnamon sugar churros, warm chocolate dip.", time: "15min", icon: "fa-utensils" },
+    { name: "Fruit Sorbet", desc: "Mixed berries, mango, coconut water, refreshing treat.", time: "10min", icon: "fa-ice-cream" },
+    { name: "Tiramisu Cups", desc: "Coffee-soaked ladyfingers, mascarpone cream, cocoa powder.", time: "15min", icon: "fa-cake-candles" },
+    { name: "Lemon Bars", desc: "Tangy lemon filling, buttery shortbread crust, powdered sugar.", time: "18min", icon: "fa-cake-candles" },
+    { name: "Rice Pudding", desc: "Creamy arborio rice, cinnamon, vanilla, raisins optional.", time: "20min", icon: "fa-utensils" }
+  ];
+
+  // PESCETARIAN - 10 recipes
+  const pescetarian = [
+    { name: "Lemon Dill Salmon", desc: "Pan-seared salmon, lemon butter sauce, asparagus.", time: "20min", icon: "fa-fish" },
+    { name: "Spicy Tuna Poke Bowl", desc: "Fresh tuna, avocado, edamame, sesame.", time: "15min", icon: "fa-bowl-food" },
+    { name: "Garlic Prawn Skewers", desc: "Grilled prawns, herb marinade, zesty dip.", time: "18min", icon: "fa-utensils" },
+    { name: "Grilled Sardines", desc: "Fresh sardines, lemon, olive oil, parsley, sea salt.", time: "15min", icon: "fa-fish" },
+    { name: "Crab Cakes", desc: "Lump crab meat, breadcrumbs, remoulade sauce.", time: "20min", icon: "fa-utensils" },
+    { name: "Seafood Paella", desc: "Shrimp, mussels, clams, saffron rice, peas.", time: "20min", icon: "fa-bowl-food" },
+    { name: "Grilled Octopus", desc: "Tender octopus, olive oil, paprika, lemon, potatoes.", time: "20min", icon: "fa-fish" },
+    { name: "Miso Glazed Cod", desc: "Buttery cod, sweet miso glaze, bok choy.", time: "18min", icon: "fa-fish" },
+    { name: "Coconut Shrimp Curry", desc: "Shrimp, coconut milk, red curry, bell peppers, basil.", time: "20min", icon: "fa-utensils" },
+    { name: "Sesame Crusted Tuna", desc: "Seared tuna, sesame seeds, wasabi, soy dipping sauce.", time: "12min", icon: "fa-fish" }
+  ];
+
+  // VEGETARIAN - 10 recipes
+  const vegetarian = [
+    { name: "Veggie Stir-fry Tofu", desc: "Colorful peppers, broccoli, tofu, ginger soy.", time: "17min", icon: "fa-seedling" },
+    { name: "Sweet Potato & Chickpea Curry", desc: "Coconut curry, spinach, quick rice.", time: "20min", icon: "fa-leaf" },
+    { name: "Caprese Avocado Toast", desc: "Fresh mozzarella, tomato, basil, balsamic.", time: "8min", icon: "fa-bread-slice" },
+    { name: "Mushroom Risotto", desc: "Creamy arborio rice, wild mushrooms, parmesan, truffle oil.", time: "20min", icon: "fa-utensils" },
+    { name: "Eggplant Parmesan", desc: "Breaded eggplant, marinara, mozzarella, fresh basil.", time: "20min", icon: "fa-leaf" },
+    { name: "Zucchini Noodles Pesto", desc: "Spiralized zucchini, fresh basil pesto, cherry tomatoes.", time: "10min", icon: "fa-leaf" },
+    { name: "Black Bean Burgers", desc: "Homemade black bean patty, avocado, lettuce, spicy mayo.", time: "15min", icon: "fa-leaf" },
+    { name: "Cauliflower Buffalo Wings", desc: "Crispy cauliflower, spicy buffalo sauce, ranch dip.", time: "18min", icon: "fa-leaf" },
+    { name: "Spinach & Feta Pie", desc: "Flaky phyllo dough, spinach, feta cheese, eggs, dill.", time: "20min", icon: "fa-utensils" },
+    { name: "Lentil Soup", desc: "Hearty lentils, vegetables, cumin, lemon, fresh parsley.", time: "20min", icon: "fa-leaf" }
+  ];
+
+  // BRAII - 10 recipes
+  const braii = [
+    { name: "Traditional Boerewors", desc: "South African beef sausage, flame-grilled to perfection.", time: "15min", icon: "fa-fire" },
+    { name: "Peri-Peri Chicken", desc: "Spicy Portuguese-style chicken, grilled, served with lemon.", time: "20min", icon: "fa-fire" },
+    { name: "Lamb Sosatie", desc: "Marinated lamb skewers, apricots, onions, curry flavor.", time: "18min", icon: "fa-fire" },
+    { name: "Braai Steak", desc: "Thick-cut beef steak, seasoned simply, cooked over coals.", time: "15min", icon: "fa-fire" },
+    { name: "Grilled Pork Ribs", desc: "Sticky BBQ pork ribs, slow-grilled, fall-off-the-bone tender.", time: "20min", icon: "fa-fire" },
+    { name: "Spatchcock Chicken", desc: "Butterflied chicken, herb marinade, crispy skin.", time: "20min", icon: "fa-fire" },
+    { name: "Braai Broodjie", desc: "Grilled cheese sandwich, tomato, onion, chutney.", time: "10min", icon: "fa-fire" },
+    { name: "Mielie Pap", desc: "Traditional maize porridge, grilled corn, butter, salt.", time: "15min", icon: "fa-fire" },
+    { name: "Snoek Braai", desc: "Whole grilled snoek fish, apricot jam, butter, lemon.", time: "18min", icon: "fa-fire" },
+    { name: "Chakalaka Relish", desc: "Spicy vegetable relish, beans, peppers, served with pap.", time: "15min", icon: "fa-fire" }
+  ];
+
+  // Add images to all recipes
+  function addImagesToRecipes(recipes) {
+    return recipes.map(recipe => ({
+      ...recipe,
+      image: getImageForRecipe(recipe.name)
+    }));
   }
 
-  function createModalRecipeCard(recipe) {
-    return `<div class="modal-recipe-card" data-recipe-name="${recipe.name}"><div class="modal-recipe-img" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1)), url('${getImageForRecipe(recipe.name)}'); background-size: cover; background-position: center;"></div><div class="modal-recipe-info"><h4>${recipe.name}</h4><p>${recipe.desc}</p><div class="recipe-meta"><i class="far fa-clock"></i> ${recipe.time}  <i class="fas fa-fire"></i> easy</div></div></div>`;
+  const allRecipes = {
+    quick: addImagesToRecipes(quickMeals),
+    drinks: addImagesToRecipes(funDrinks),
+    desserts: addImagesToRecipes(desserts),
+    pescetarian: addImagesToRecipes(pescetarian),
+    vegetarian: addImagesToRecipes(vegetarian),
+    braii: addImagesToRecipes(braii)
+  };
+
+  function createRecipeCard(recipe, isMainPage = true) {
+    if (isMainPage) {
+      return `<div class="recipe-card"><div class="recipe-img" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1)), url('${recipe.image}'); background-size: cover; background-position: center;"><span class="recipe-badge"><i class="fas ${recipe.icon}"></i> ${recipe.time}</span></div><div class="recipe-info"><h4>${recipe.name}</h4><div class="recipe-desc">${recipe.desc}</div><div class="recipe-meta"><i class="far fa-clock"></i> ${recipe.time}  <i class="fas fa-fire"></i> easy</div></div></div>`;
+    } else {
+      return `<div class="modal-recipe-card"><div class="modal-recipe-img" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1)), url('${recipe.image}'); background-size: cover; background-position: center;"></div><div class="modal-recipe-info"><h4>${recipe.name}</h4><p>${recipe.desc}</p><div class="recipe-meta"><i class="far fa-clock"></i> ${recipe.time}  <i class="fas fa-fire"></i> easy</div></div></div>`;
+    }
   }
 
   function renderMainPage() {
-    document.getElementById('quick-grid').innerHTML = categoryRecipes.quick.slice(0, 3).map(createRecipeCard).join('');
-    document.getElementById('drinks-grid').innerHTML = categoryRecipes.drinks.slice(0, 3).map(createRecipeCard).join('');
-    document.getElementById('desserts-grid').innerHTML = categoryRecipes.desserts.slice(0, 3).map(createRecipeCard).join('');
-    document.getElementById('pescetarian-grid').innerHTML = categoryRecipes.pescetarian.slice(0, 3).map(createRecipeCard).join('');
-    document.getElementById('vegetarian-grid').innerHTML = categoryRecipes.vegetarian.slice(0, 3).map(createRecipeCard).join('');
+    document.getElementById('quick-grid').innerHTML = allRecipes.quick.slice(0, 3).map(r => createRecipeCard(r, true)).join('');
+    document.getElementById('drinks-grid').innerHTML = allRecipes.drinks.slice(0, 3).map(r => createRecipeCard(r, true)).join('');
+    document.getElementById('desserts-grid').innerHTML = allRecipes.desserts.slice(0, 3).map(r => createRecipeCard(r, true)).join('');
+    document.getElementById('pescetarian-grid').innerHTML = allRecipes.pescetarian.slice(0, 3).map(r => createRecipeCard(r, true)).join('');
+    document.getElementById('vegetarian-grid').innerHTML = allRecipes.vegetarian.slice(0, 3).map(r => createRecipeCard(r, true)).join('');
   }
 
-  // Modal handling
-  const categoryModal = document.getElementById('categoryModal');
-  const recipeDetailModal = document.getElementById('recipeDetailModal');
-  const categoryModalGrid = document.getElementById('categoryModalGrid');
-  const categoryModalTitle = document.getElementById('categoryModalTitle');
-  const detailModalBody = document.getElementById('detailModalBody');
-  const detailModalTitle = document.getElementById('detailModalTitle');
+  const modal = document.getElementById('videoModal');
+  const modalGrid = document.getElementById('modalGrid');
+  const modalTitle = document.getElementById('modalTitle');
 
-  function openCategoryModal(category) {
+  function openModal(category) {
     let recipes = [];
     let title = '';
     switch(category) {
-      case 'quick': recipes = categoryRecipes.quick; title = 'Easy Quick Meals (11 Recipes)'; break;
-      case 'drinks': recipes = categoryRecipes.drinks; title = 'Fun Drinks (11 Recipes)'; break;
-      case 'desserts': recipes = categoryRecipes.desserts; title = 'Quick & Tasty Desserts (10 Recipes)'; break;
-      case 'pescetarian': recipes = categoryRecipes.pescetarian; title = 'Pescetarian Delights (10 Recipes)'; break;
-      case 'vegetarian': recipes = categoryRecipes.vegetarian; title = 'Vibrant Vegetarian (10 Recipes)'; break;
-      case 'braii': recipes = categoryRecipes.braii; title = 'Braii — South African Grill (10 Recipes)'; break;
+      case 'quick': recipes = allRecipes.quick; title = 'Easy Quick Meals (11 Recipes)'; break;
+      case 'drinks': recipes = allRecipes.drinks; title = 'Fun Drinks (11 Recipes)'; break;
+      case 'desserts': recipes = allRecipes.desserts; title = 'Quick & Tasty Desserts (10 Recipes)'; break;
+      case 'pescetarian': recipes = allRecipes.pescetarian; title = 'Pescetarian Delights (10 Recipes)'; break;
+      case 'vegetarian': recipes = allRecipes.vegetarian; title = 'Vibrant Vegetarian (10 Recipes)'; break;
+      case 'braii': recipes = allRecipes.braii; title = 'Braii — South African Grill (10 Recipes)'; break;
       default: return;
     }
-    categoryModalTitle.textContent = title;
-    categoryModalGrid.innerHTML = recipes.map(createModalRecipeCard).join('');
-    categoryModal.style.display = 'flex';
+    modalTitle.textContent = title;
+    modalGrid.innerHTML = recipes.map(r => createRecipeCard(r, false)).join('');
+    modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
   }
 
-  function openRecipeDetailModal(recipeName) {
-    const details = getRecipeDetails(recipeName);
-    const imageUrl = getImageForRecipe(recipeName);
-    let recipeData = null;
-    for (const cat of Object.values(categoryRecipes)) {
-      recipeData = cat.find(r => r.name === recipeName);
-      if (recipeData) break;
-    }
-    const time = recipeData?.time || '15min';
-    
-    detailModalTitle.textContent = recipeName;
-    detailModalBody.innerHTML = `
-      <div class="recipe-detail">
-        <div class="recipe-detail-header">
-          <div class="recipe-detail-img" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1)), url('${imageUrl}');"></div>
-          <div class="recipe-detail-info">
-            <h3>${recipeName}</h3>
-            <div class="recipe-detail-meta">
-              <span><i class="fas fa-clock"></i> Prep: 10 mins | Cook: ${time}</span>
-              <span><i class="fas fa-chart-line"></i> Difficulty: Easy</span>
-            </div>
-          </div>
-        </div>
-        <div class="recipe-section">
-          <h4><i class="fas fa-shopping-basket"></i> Ingredients</h4>
-          <ul>
-            ${details.ingredients.map(ing => `<li>${ing}</li>`).join('')}
-          </ul>
-        </div>
-        <div class="recipe-section">
-          <h4><i class="fas fa-list-ol"></i> Instructions</h4>
-          <ol>
-            ${details.instructions.map(step => `<li>${step}</li>`).join('')}
-          </ol>
-        </div>
-      </div>
-    `;
-    recipeDetailModal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeAllModals() {
-    categoryModal.style.display = 'none';
-    recipeDetailModal.style.display = 'none';
+  function closeModal() {
+    modal.style.display = 'none';
     document.body.style.overflow = '';
   }
 
-  // Event listeners
   document.querySelectorAll('.cat-card').forEach(card => {
     card.addEventListener('click', () => {
       const category = card.getAttribute('data-category');
-      if (category) openCategoryModal(category);
+      if (category) openModal(category);
     });
   });
 
-  // Click on category modal cards to open recipe details
-  categoryModalGrid.addEventListener('click', (e) => {
-    const card = e.target.closest('.modal-recipe-card');
-    if (card) {
-      const recipeName = card.getAttribute('data-recipe-name');
-      if (recipeName) {
-        categoryModal.style.display = 'none';
-        openRecipeDetailModal(recipeName);
-      }
-    }
-  });
-
-  // Click on main page recipe cards
-  document.querySelectorAll('.recipe-grid').forEach(grid => {
-    grid.addEventListener('click', (e) => {
-      const card = e.target.closest('.recipe-card');
-      if (card) {
-        const recipeName = card.getAttribute('data-recipe-name');
-        if (recipeName) openRecipeDetailModal(recipeName);
-      }
-    });
-  });
-
-  // Close buttons
-  document.querySelectorAll('.close-modal, .category-close, .detail-close').forEach(btn => {
-    btn.addEventListener('click', closeAllModals);
-  });
-
-  window.addEventListener('click', (e) => {
-    if (e.target === categoryModal) closeAllModals();
-    if (e.target === recipeDetailModal) closeAllModals();
-  });
-  window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAllModals(); });
+  document.querySelector('.close-modal').addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.style.display === 'flex') closeModal(); });
 
   renderMainPage();
 </script>
